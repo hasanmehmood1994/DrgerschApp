@@ -32,6 +32,8 @@ dependencies:
   webview_flutter: ^1.0.7
   shared_preferences: ^0.5.12+4
   flutter_page_transition: ^0.1.0
+  http: ^0.12.2
+  dio: ^3.0.10
 
 
 dev_dependencies:

@@ -38,18 +38,14 @@ class _LoginPageState extends State<LoginPage> {
         resizeToAvoidBottomInset: true,
         body:  Container(
           child: Container(
-       //     margin: EdgeInsets.fromLTRB(0, MediaQuery.of(context).size.height/10, 0, 0),
             child: ListView(
-
               children: <Widget>[
                 Container(
-
                   child: Align(
                       alignment: Alignment.center,
                       child: Image.asset('assets/logo.png',width: 200,height: 200,)
                   ),
                 ),
-
                 Container(
 
                   child: Align(
