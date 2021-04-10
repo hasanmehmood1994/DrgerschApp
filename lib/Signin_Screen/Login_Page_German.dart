@@ -2,6 +2,8 @@ import 'package:drgerschapp/Language.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../Sharef_Pref.dart';
+
 class LoginPageGerman extends StatefulWidget {
   @override
   _LoginPageGermanState createState() => _LoginPageGermanState();
@@ -20,8 +22,10 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
   bool valuefirst= false;
   IconData passicon=Icons.remove_red_eye;
 
-  int currentPage = 0;
+  int selectedRadioTile;
 
+  int currentPage = 0;
+  SharedPref sharedPref;
   @override
   void initState() {
     // TODO: implement initState
@@ -361,9 +365,22 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
                             Expanded(
                                 flex: 1,
                                 child: InkWell(
+
                                   child: Column(
                                     children: [
-                                      Image.asset('assets/imprint.jpg',height: 30,width: 30,),
+                                      Container(
+
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: Colors.black,
+                                            ),
+                                            borderRadius: BorderRadius.all(Radius.circular(20))
+                                        ),
+                                        child: Padding(
+                                            padding: EdgeInsets.only(bottom: 3.0,top: 3.0,left: 15,right: 15),
+                                            child: Image.asset('assets/imprint.jpg',height: 30,width: 30,)),
+
+                                      ),
                                       Text('Impressum',style: TextStyle(color: Colors.black,fontSize: 10,fontWeight: FontWeight.bold),)
                                     ],
                                   ),
@@ -372,35 +389,147 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
                             Expanded(
                                 flex: 1,
                                 child: InkWell(
+                                  onTap: (){
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return StatefulBuilder(
+                                              builder: (context, setState) {
+
+                                                return Dialog(
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                      BorderRadius.circular(20.0)), //this right here
+                                                  child: Container(
+                                                    height: 200,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.all(12.0),
+                                                      child: Column(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: <Widget>[
+
+                                                          RadioListTile(
+                                                            value: 1,
+                                                            groupValue: selectedRadioTile,
+                                                            title: Text("English"),
+                                                            onChanged: (val) {
+                                                              if(sharedPref.getLanguage()!='english'){
+                                                                sharedPref.setLanguage('english');
+                                                                Navigator.pop(context);
+                                                                Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(builder: (context) => LoginPageGerman()),
+                                                                );                                            }
+                                                              print("Radio Tile pressed $val");
+                                                              setState(() {
+                                                                selectedRadioTile = val;
+                                                              });
+                                                            },
+                                                            activeColor: Color(0xffCDDFB9),
+
+                                                            selected: false,
+                                                          ),
+                                                          RadioListTile(
+                                                            value: 2,
+                                                            groupValue: selectedRadioTile,
+                                                            title: Text("German"),
+                                                            onChanged: (val) {
+                                                              if(sharedPref.getLanguage()!='german'){
+                                                                sharedPref.setLanguage('german');
+                                                                Navigator.pop(context);
+                                                                Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(builder: (context) => LoginPageGerman()),
+                                                                );                                            }
+                                                              print("Radio Tile pressed $val");
+
+                                                              setState(() {
+                                                                selectedRadioTile = val;
+                                                              });                                          },
+                                                            activeColor: Color(0xffCDDFB9),
+                                                            selected: false,
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                          );
+                                        }
+                                    );
+                                  },
+
                                   child: Column(
                                     children: [
-                                      Image.asset('assets/clanguage.jpg',height: 30,width: 30,),
+                                      Container(
+
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: Colors.black,
+                                            ),
+                                            borderRadius: BorderRadius.all(Radius.circular(20))
+                                        ),
+                                        child: Padding(
+                                            padding: EdgeInsets.only(bottom: 3.0,top: 3.0,left: 15,right: 15),
+                                            child: Image.asset('assets/clanguage.jpg',height: 30,width: 30,)),
+
+                                      ),
                                       Text('Sprache ändern',style: TextStyle(color: Colors.black,fontSize: 10,fontWeight: FontWeight.bold),)
                                     ],
                                   ),
                                 )),
 
+
                             Expanded(
                                 flex: 1,
                                 child: InkWell(
+
                                   child: Column(
                                     children: [
-                                      Image.asset('assets/appointment.png',height: 30,width: 30,),
+                                      Container(
+
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: Colors.black,
+                                            ),
+                                            borderRadius: BorderRadius.all(Radius.circular(20))
+                                        ),
+                                        child: Padding(
+                                            padding: EdgeInsets.only(bottom: 3.0,top: 3.0,left: 15,right: 15),
+                                            child: Image.asset('assets/appointment.png',height: 30,width: 30,)),
+
+                                      ),
                                       Text('Termine',style: TextStyle(color: Colors.black,fontSize: 10,fontWeight: FontWeight.bold),)
                                     ],
                                   ),
                                 )),
 
+
                             Expanded(
-                              flex: 1,
-                              child: InkWell(
-                                child: Column(
-                                  children: [
-                                    Image.asset('assets/settings.png',height: 30,width: 30,),
-                                    Text('Privatsphäre',style: TextStyle(color: Colors.black,fontSize: 10,fontWeight: FontWeight.bold),)
-                                  ],
-                                ),
-                              ),)
+                                flex: 1,
+                                child: InkWell(
+
+                                  child: Column(
+                                    children: [
+                                      Container(
+
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: Colors.black,
+                                            ),
+                                            borderRadius: BorderRadius.all(Radius.circular(20))
+                                        ),
+                                        child: Padding(
+                                            padding: EdgeInsets.only(bottom: 3.0,top: 3.0,left: 15,right: 15),
+                                            child: Image.asset('assets/settings.png',height: 30,width: 30,)),
+
+                                      ),
+                                      Text('Privatsphäre',style: TextStyle(color: Colors.black,fontSize: 10,fontWeight: FontWeight.bold),)
+                                    ],
+                                  ),
+                                )),
 
 
                           ],
@@ -410,18 +539,13 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
                 ),
 
               ),
+
             ],
           )
       ),
     );
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      currentPage = index;
-
-    });
-  }
 
 
 

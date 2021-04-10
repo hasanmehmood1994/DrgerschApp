@@ -1,4 +1,5 @@
 import 'package:drgerschapp/Signin_Screen/Login_Page.dart';
+import 'package:drgerschapp/Signin_Screen/Login_Page_German.dart';
 import 'package:drgerschapp/Splash_Screen.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
       routes:{
         '/': (context) => Splash_Screen(),
         '/login': (context) => LoginPage(),
+        '/loginGerman': (context) => LoginPageGerman(),
         '/dashboard': (context) => Dashboard_Screen(),
 
       },
