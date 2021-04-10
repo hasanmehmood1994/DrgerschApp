@@ -62,7 +62,7 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
                             child: Column(
                               children: [
                                 Text('Dr. med. Christian Gersch',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 10)),
-                                Text('Private Practice at Kaiserslautern/Germany',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 10
+                                Text('Privatärztliche Praxis',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 10
                                 )),
                               ],
                             ),
@@ -89,7 +89,7 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
                                             decoration: InputDecoration(
                                               prefixIcon:Icon(Icons.email),
                                               border: OutlineInputBorder(),
-                                              labelText: 'Email',
+                                              labelText: 'Patientennummer',
 
                                               labelStyle: TextStyle(
                                               ),
@@ -142,7 +142,7 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
                                                 }
                                               },),
                                               border: OutlineInputBorder(),
-                                              labelText: 'Password',
+                                              labelText: 'Passwort',
                                               labelStyle: TextStyle(
                                               ),
                                               focusedBorder: OutlineInputBorder(
@@ -174,7 +174,7 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
                                           });
                                         },
                                       ),
-                                      Text('Save Password')
+                                      Text('Passwort speichern')
                                     ],
                                   ),
                                 ],
@@ -195,7 +195,7 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
                                         child: RaisedButton(
                                           shape: StadiumBorder(),
                                           onPressed: () {},
-                                          child: Text("Login"),
+                                          child: Text("Einloggen"),
                                           color: Color(0xffCDDFB9),
                                         ),
                                       ),
@@ -230,7 +230,7 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
                                                               SizedBox(
                                                                 height: 10,
                                                               ),
-                                                              Text('You cannot register on your own. Please schedule an appointment with the practice to receive login data.',style: TextStyle(fontSize: 16,),textAlign: TextAlign.center,),
+                                                              Text('Sie können sich nicht alleine registrieren. Bitte vereinbaren Sie einen Termin mit der Praxis, um Anmeldedaten zu erhalten.',style: TextStyle(fontSize: 16,),textAlign: TextAlign.center,),
                                                               SizedBox(
                                                                 height: 10,
                                                               ),
@@ -256,7 +256,7 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
                                                   }
                                               );
                                             },
-                                            child: Text("Register"),
+                                            child: Text("Registrieren"),
                                             color: Color(0xffCDDFB9),
                                           ))
                                     ],
@@ -271,7 +271,7 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
                                 height: 20,
                               ),
                               InkWell(
-                                child: Text('Forgot Password?',
+                                child: Text('Passwort vergessen?',
                                     style: TextStyle(
                                         fontSize: 14, fontWeight: FontWeight.w500,color: Color(
                                         0xffb6de88), decoration: TextDecoration.underline)),
@@ -301,9 +301,9 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
                                                   ),
                                                   Align(child: Column(
                                                     children: [
-                                                      Text('Please Contact',style: TextStyle(fontSize: 16,),textAlign: TextAlign.center,),
+                                                      Text('Kontaktieren Sie bitte',style: TextStyle(fontSize: 16,),textAlign: TextAlign.center,),
                                                       Text('office@drgersch.de',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
-                                                      Text('to request new login data.',style: TextStyle(fontSize: 16,),textAlign: TextAlign.center,),
+                                                      Text('um neue Anmeldedaten anzufordern.',style: TextStyle(fontSize: 16,),textAlign: TextAlign.center,),
 
                                                     ],
                                                   )),
@@ -364,7 +364,7 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
                                   child: Column(
                                     children: [
                                       Image.asset('assets/imprint.jpg',height: 30,width: 30,),
-                                      Text('Imprint',style: TextStyle(color: Colors.black,fontSize: 10,fontWeight: FontWeight.bold),)
+                                      Text('Impressum',style: TextStyle(color: Colors.black,fontSize: 10,fontWeight: FontWeight.bold),)
                                     ],
                                   ),
                                 )),
@@ -375,7 +375,7 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
                                   child: Column(
                                     children: [
                                       Image.asset('assets/clanguage.jpg',height: 30,width: 30,),
-                                      Text('Language',style: TextStyle(color: Colors.black,fontSize: 10,fontWeight: FontWeight.bold),)
+                                      Text('Sprache ändern',style: TextStyle(color: Colors.black,fontSize: 10,fontWeight: FontWeight.bold),)
                                     ],
                                   ),
                                 )),
@@ -386,7 +386,7 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
                                   child: Column(
                                     children: [
                                       Image.asset('assets/appointment.png',height: 30,width: 30,),
-                                      Text('Appointment',style: TextStyle(color: Colors.black,fontSize: 10,fontWeight: FontWeight.bold),)
+                                      Text('Termine',style: TextStyle(color: Colors.black,fontSize: 10,fontWeight: FontWeight.bold),)
                                     ],
                                   ),
                                 )),
@@ -397,7 +397,7 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
                                 child: Column(
                                   children: [
                                     Image.asset('assets/settings.png',height: 30,width: 30,),
-                                    Text('Privacy',style: TextStyle(color: Colors.black,fontSize: 10,fontWeight: FontWeight.bold),)
+                                    Text('Privatsphäre',style: TextStyle(color: Colors.black,fontSize: 10,fontWeight: FontWeight.bold),)
                                   ],
                                 ),
                               ),)

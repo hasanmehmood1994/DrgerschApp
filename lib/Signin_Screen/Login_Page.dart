@@ -12,8 +12,6 @@ class _LoginPageState extends State<LoginPage> {
   bool loginbtnvisibly = true;
   TextEditingController email_controler = TextEditingController();
   TextEditingController pass_controler = TextEditingController();
-  final GlobalKey<FormFieldState> _emailFormKey = GlobalKey<FormFieldState>();
-  final GlobalKey<FormFieldState> _passFormKey = GlobalKey<FormFieldState>();
   bool validate = false;
 
   bool absscurestatus=true;
@@ -89,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                                           decoration: InputDecoration(
                                             prefixIcon:Icon(Icons.email),
                                             border: OutlineInputBorder(),
-                                            labelText: 'Email',
+                                            labelText: 'Patient Number',
 
                                             labelStyle: TextStyle(
                                             ),
