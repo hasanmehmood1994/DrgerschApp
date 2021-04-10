@@ -26,7 +26,7 @@ class _Splash_ScreenState extends State<Splash_Screen> {
     );
   }
   Future After_Splash_Screen()async {
-    return new Future.delayed(const Duration(seconds: 2), () {
+    return new Future.delayed(const Duration(seconds:1), () {
 //it will remove last class from stack
       Navigator.of(context).pushReplacementNamed('/login');
     });
