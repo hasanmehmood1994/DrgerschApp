@@ -18,7 +18,6 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginPage(),
         '/dashboard': (context) => Dashboard_Screen(),
 
-//  I love You
       },
       debugShowCheckedModeBanner: false,
 
@@ -32,7 +31,10 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+          fontFamily: 'quicksand',
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        accentColor: Colors.black,
+        primaryColor: Colors.black,
       ),
 
     );
