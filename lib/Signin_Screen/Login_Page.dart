@@ -429,7 +429,7 @@ class _LoginPageState extends State<LoginPage> {
                                                   20.0)),
                                       //this right here
                                       child: Container(
-
+                                        height: 200,
                                         child: Padding(
                                           padding:
                                               const EdgeInsets.all(12.0),
@@ -445,22 +445,11 @@ class _LoginPageState extends State<LoginPage> {
                                                     selectedRadioTile,
                                                 title: Text("English"),
                                                 onChanged: (val) {
-                                                  if (sharedPref
-                                                          .getLanguage() !=
-                                                      'english') {
-                                                    sharedPref
-                                                        .setLanguage(
-                                                            'english');
-                                                    Navigator.pop(
-                                                        context);
-                                                    Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder:
-                                                              (context) =>
-                                                                  LoginPageGerman()),
-                                                    );
-                                                  }
+                                                  if (sharedPref.getLanguage() != 'english') {
+                                                    sharedPref.setLanguage('english');
+                                                    Navigator.pop(context);
+                                                    Navigator.of(context).pushReplacementNamed('/login');
+                                                    }
                                                   print(
                                                       "Radio Tile pressed $val");
                                                   setState(() {
@@ -486,13 +475,8 @@ class _LoginPageState extends State<LoginPage> {
                                                             'german');
                                                     Navigator.pop(
                                                         context);
-                                                    Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder:
-                                                              (context) =>
-                                                                  LoginPageGerman()),
-                                                    );
+                                                    Navigator.of(context).pushReplacementNamed('/loginGerman');
+
                                                   }
                                                   print(
                                                       "Radio Tile pressed $val");

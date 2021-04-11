@@ -93,7 +93,7 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
                                             decoration: InputDecoration(
                                               prefixIcon:Icon(Icons.email),
                                               border: OutlineInputBorder(),
-                                              labelText: 'Patientennummer',
+                                              labelText: 'Patienten nummer',
 
                                               labelStyle: TextStyle(
                                               ),
@@ -387,59 +387,73 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
                                 builder: (BuildContext context) {
                                   return StatefulBuilder(
                                       builder: (context, setState) {
-
                                         return Dialog(
                                           shape: RoundedRectangleBorder(
                                               borderRadius:
-                                              BorderRadius.circular(20.0)), //this right here
+                                              BorderRadius.circular(
+                                                  20.0)),
+                                          //this right here
                                           child: Container(
                                             height: 200,
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(12.0),
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: <Widget>[
 
+                                            child: Padding(
+                                              padding:
+                                              const EdgeInsets.all(12.0),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                                children: <Widget>[
                                                   RadioListTile(
                                                     value: 1,
-                                                    groupValue: selectedRadioTile,
+                                                    groupValue:
+                                                    selectedRadioTile,
                                                     title: Text("English"),
                                                     onChanged: (val) {
-                                                      if(sharedPref.getLanguage()!='english'){
+                                                      if (sharedPref.getLanguage() != 'english') {
                                                         sharedPref.setLanguage('english');
                                                         Navigator.pop(context);
-                                                        Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(builder: (context) => LoginPageGerman()),
-                                                        );                                            }
-                                                      print("Radio Tile pressed $val");
+                                                        Navigator.of(context).pushReplacementNamed('/login');
+                                                      }
+                                                      print(
+                                                          "Radio Tile pressed $val");
                                                       setState(() {
-                                                        selectedRadioTile = val;
+                                                        selectedRadioTile =
+                                                            val;
                                                       });
                                                     },
-                                                    activeColor: Color(0xffCDDFB9),
-
+                                                    activeColor:
+                                                    Color(0xffCDDFB9),
                                                     selected: false,
                                                   ),
                                                   RadioListTile(
                                                     value: 2,
-                                                    groupValue: selectedRadioTile,
+                                                    groupValue:
+                                                    selectedRadioTile,
                                                     title: Text("German"),
                                                     onChanged: (val) {
-                                                      if(sharedPref.getLanguage()!='german'){
-                                                        sharedPref.setLanguage('german');
-                                                        Navigator.pop(context);
-                                                        Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(builder: (context) => LoginPageGerman()),
-                                                        );                                            }
-                                                      print("Radio Tile pressed $val");
+                                                      if (sharedPref
+                                                          .getLanguage() !=
+                                                          'german') {
+                                                        sharedPref
+                                                            .setLanguage(
+                                                            'german');
+                                                        Navigator.pop(
+                                                            context);
+                                                        Navigator.of(context).pushReplacementNamed('/loginGerman');
+
+                                                      }
+                                                      print(
+                                                          "Radio Tile pressed $val");
 
                                                       setState(() {
-                                                        selectedRadioTile = val;
-                                                      });                                          },
-                                                    activeColor: Color(0xffCDDFB9),
+                                                        selectedRadioTile =
+                                                            val;
+                                                      });
+                                                    },
+                                                    activeColor:
+                                                    Color(0xffCDDFB9),
                                                     selected: false,
                                                   )
                                                 ],
@@ -447,10 +461,8 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
                                             ),
                                           ),
                                         );
-                                      }
-                                  );
-                                }
-                            );
+                                      });
+                                });
                           },
 
                           child: Column(
