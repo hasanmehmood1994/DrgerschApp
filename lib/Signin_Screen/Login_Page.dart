@@ -197,7 +197,7 @@ class _LoginPageState extends State<LoginPage> {
                                           }else if(pass_controler.text.trim().toString().isEmpty){
                                             Toast.show('Please Enter Password',context);
                                           }else{
-                                            callapi(email_controler.text.trim().toString(),pass_controler.text.trim().toString());
+                                            Login_User_Api(email_controler.text.trim().toString(),pass_controler.text.trim().toString(),false);
 
                                           }
 
@@ -621,19 +621,26 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  callapi(String ptno,String pass)async{
+  Login_User_Api(String ptno,String pass,bool status)async{
     var url = 'https://www.ehausbesuch.de/app.cgi?action=app&userid='+ptno+'&passwort='+pass+'&version=1.0';
     var response = await http.get(url);
 
-    print(response.body.toString());
-    print(response.body.substring(11,50));
+
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body.isEmpty}');
     print('Response body: ${response.body.contains("session_id")}');
     print('Response body: ${response.body.contains("session_duration")}');
     print('Response body: ${response.body.contains("language")}');
     print('Response body: ${response.body.contains("change_password")}');
-
+if(response.body.contains("session_id"))
+  {
+    print(response.body.toString());
+    print(response.body.substring(11,50));
+    Toast.show("Login", context);
+  }
+else{
+  Toast.show("Invalid User", context);
+}
   }
   void getHttp() async {
     try {
