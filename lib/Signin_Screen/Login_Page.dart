@@ -21,6 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController email_controler = TextEditingController();
   TextEditingController pass_controler = TextEditingController();
   bool validate = false;
+  bool loginstatus = false;
 
   bool absscurestatus = true;
   bool valuefirst = false;
@@ -100,9 +101,9 @@ class _LoginPageState extends State<LoginPage> {
                                             labelStyle: TextStyle(),
                                             focusedBorder: OutlineInputBorder(
                                               borderSide:
-                                                  const BorderSide(width: 2.0),
+                                              const BorderSide(width: 2.0),
                                               borderRadius:
-                                                  BorderRadius.circular(25.0),
+                                              BorderRadius.circular(25.0),
                                             ),
                                           ),
                                         ),
@@ -148,9 +149,9 @@ class _LoginPageState extends State<LoginPage> {
                                             labelStyle: TextStyle(),
                                             focusedBorder: OutlineInputBorder(
                                               borderSide:
-                                                  const BorderSide(width: 2.0),
+                                              const BorderSide(width: 2.0),
                                               borderRadius:
-                                                  BorderRadius.circular(25.0),
+                                              BorderRadius.circular(25.0),
                                             ),
                                           ),
                                         ),
@@ -166,6 +167,7 @@ class _LoginPageState extends State<LoginPage> {
                                       value: this.valuefirst,
                                       onChanged: (bool value) {
                                         setState(() {
+                                          loginstatus  = value;
                                           this.valuefirst = value;
                                         });
                                       },
@@ -186,7 +188,7 @@ class _LoginPageState extends State<LoginPage> {
                                             color: Colors.grey[100]))),
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     Expanded(
                                       child: RaisedButton(
@@ -197,7 +199,7 @@ class _LoginPageState extends State<LoginPage> {
                                           }else if(pass_controler.text.trim().toString().isEmpty){
                                             Toast.show('Please Enter Password',context);
                                           }else{
-                                            Login_User_Api(email_controler.text.trim().toString(),pass_controler.text.trim().toString(),false);
+                                            Login_User_Api(email_controler.text.trim().toString(),pass_controler.text.trim().toString(),loginstatus);
                                           }
 
 
@@ -211,77 +213,77 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                     Expanded(
                                         child: RaisedButton(
-                                      shape: StadiumBorder(),
-                                      onPressed: () {
-                                        showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return Dialog(
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
+                                          shape: StadiumBorder(),
+                                          onPressed: () {
+                                            showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  return Dialog(
+                                                    shape: RoundedRectangleBorder(
+                                                        borderRadius:
                                                         BorderRadius.circular(
                                                             20.0)),
-                                                //this right here
-                                                child: Container(
-                                                  height: 300,
-                                                  child: Padding(
-                                                    padding:
+                                                    //this right here
+                                                    child: Container(
+                                                      height: 300,
+                                                      child: Padding(
+                                                        padding:
                                                         const EdgeInsets.all(
                                                             12.0),
-                                                    child: Column(
-                                                      mainAxisAlignment:
+                                                        child: Column(
+                                                          mainAxisAlignment:
                                                           MainAxisAlignment
                                                               .center,
-                                                      crossAxisAlignment:
+                                                          crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .start,
-                                                      children: [
-                                                        Align(
-                                                            child: Image.asset(
-                                                          'assets/logo.png',
-                                                          height: 100,
-                                                          width: 100,
-                                                        )),
-                                                        SizedBox(
-                                                          height: 10,
-                                                        ),
-                                                        Text(
-                                                          'You cannot register on your own. Please schedule an appointment with the practice to receive login data.',
-                                                          style: TextStyle(
-                                                            fontSize: 16,
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        ),
-                                                        SizedBox(
-                                                          height: 10,
-                                                        ),
-                                                        Align(
-                                                          child: SizedBox(
-                                                            width: 220.0,
-                                                            child: RaisedButton(
-                                                              shape:
-                                                                  StadiumBorder(),
-                                                              onPressed: () {
-                                                                Navigator.pop(
-                                                                    context);
-                                                              },
-                                                              child: Text("OK"),
-                                                              color: Color(
-                                                                  0xffCDDFB9),
+                                                          children: [
+                                                            Align(
+                                                                child: Image.asset(
+                                                                  'assets/logo.png',
+                                                                  height: 100,
+                                                                  width: 100,
+                                                                )),
+                                                            SizedBox(
+                                                              height: 10,
                                                             ),
-                                                          ),
-                                                        )
-                                                      ],
+                                                            Text(
+                                                              'You cannot register on your own. Please schedule an appointment with the practice to receive login data.',
+                                                              style: TextStyle(
+                                                                fontSize: 16,
+                                                              ),
+                                                              textAlign:
+                                                              TextAlign.center,
+                                                            ),
+                                                            SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                            Align(
+                                                              child: SizedBox(
+                                                                width: 220.0,
+                                                                child: RaisedButton(
+                                                                  shape:
+                                                                  StadiumBorder(),
+                                                                  onPressed: () {
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  },
+                                                                  child: Text("OK"),
+                                                                  color: Color(
+                                                                      0xffCDDFB9),
+                                                                ),
+                                                              ),
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
                                                     ),
-                                                  ),
-                                                ),
-                                              );
-                                            });
-                                      },
-                                      child: Text("Register"),
-                                      color: Color(0xffCDDFB9),
-                                    ))
+                                                  );
+                                                });
+                                          },
+                                          child: Text("Register"),
+                                          color: Color(0xffCDDFB9),
+                                        ))
                                   ],
                                 ),
                               ),
@@ -307,7 +309,7 @@ class _LoginPageState extends State<LoginPage> {
                                       return Dialog(
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
-                                                BorderRadius.circular(20.0)),
+                                            BorderRadius.circular(20.0)),
                                         //this right here
                                         child: Container(
                                           height: 300,
@@ -315,49 +317,49 @@ class _LoginPageState extends State<LoginPage> {
                                             padding: const EdgeInsets.all(12.0),
                                             child: Column(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                              MainAxisAlignment.center,
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                               children: [
                                                 Align(
                                                     child: Image.asset(
-                                                  'assets/logo.png',
-                                                  height: 100,
-                                                  width: 100,
-                                                )),
+                                                      'assets/logo.png',
+                                                      height: 100,
+                                                      width: 100,
+                                                    )),
                                                 SizedBox(
                                                   height: 10,
                                                 ),
                                                 Align(
                                                     child: Column(
-                                                  children: [
-                                                    Text(
-                                                      'Please Contact',
-                                                      style: TextStyle(
-                                                        fontSize: 16,
-                                                      ),
-                                                      textAlign:
+                                                      children: [
+                                                        Text(
+                                                          'Please Contact',
+                                                          style: TextStyle(
+                                                            fontSize: 16,
+                                                          ),
+                                                          textAlign:
                                                           TextAlign.center,
-                                                    ),
-                                                    Text(
-                                                      'office@drgersch.de',
-                                                      style: TextStyle(
-                                                          fontSize: 16,
-                                                          fontWeight:
+                                                        ),
+                                                        Text(
+                                                          'office@drgersch.de',
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontWeight:
                                                               FontWeight.bold),
-                                                      textAlign:
+                                                          textAlign:
                                                           TextAlign.center,
-                                                    ),
-                                                    Text(
-                                                      'to request new login data.',
-                                                      style: TextStyle(
-                                                        fontSize: 16,
-                                                      ),
-                                                      textAlign:
+                                                        ),
+                                                        Text(
+                                                          'to request new login data.',
+                                                          style: TextStyle(
+                                                            fontSize: 16,
+                                                          ),
+                                                          textAlign:
                                                           TextAlign.center,
-                                                    ),
-                                                  ],
-                                                )),
+                                                        ),
+                                                      ],
+                                                    )),
                                                 SizedBox(
                                                   height: 10,
                                                 ),
@@ -437,80 +439,80 @@ class _LoginPageState extends State<LoginPage> {
                                 builder: (BuildContext context) {
                                   return StatefulBuilder(
                                       builder: (context, setState) {
-                                    return Dialog(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
+                                        return Dialog(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
                                               BorderRadius.circular(
                                                   20.0)),
-                                      //this right here
-                                      child: Container(
-                                        height: 200,
-                                        child: Padding(
-                                          padding:
+                                          //this right here
+                                          child: Container(
+                                            height: 200,
+                                            child: Padding(
+                                              padding:
                                               const EdgeInsets.all(12.0),
-                                          child: Column(
-                                            mainAxisAlignment:
+                                              child: Column(
+                                                mainAxisAlignment:
                                                 MainAxisAlignment.center,
-                                            crossAxisAlignment:
+                                                crossAxisAlignment:
                                                 CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              RadioListTile(
-                                                value: 1,
-                                                groupValue:
+                                                children: <Widget>[
+                                                  RadioListTile(
+                                                    value: 1,
+                                                    groupValue:
                                                     selectedRadioTile,
-                                                title: Text("English"),
-                                                onChanged: (val) {
-                                                  if (sharedPref.getLanguage() != 'english') {
-                                                    sharedPref.setLanguage('english');
-                                                    Navigator.pop(context);
-                                                    Navigator.of(context).pushReplacementNamed('/login');
-                                                    }
-                                                  print(
-                                                      "Radio Tile pressed $val");
-                                                  setState(() {
-                                                    selectedRadioTile =
-                                                        val;
-                                                  });
-                                                },
-                                                activeColor:
+                                                    title: Text("English"),
+                                                    onChanged: (val) {
+                                                      if (sharedPref.getLanguage() != 'english') {
+                                                        sharedPref.setLanguage('english');
+                                                        Navigator.pop(context);
+                                                        Navigator.of(context).pushReplacementNamed('/login');
+                                                      }
+                                                      print(
+                                                          "Radio Tile pressed $val");
+                                                      setState(() {
+                                                        selectedRadioTile =
+                                                            val;
+                                                      });
+                                                    },
+                                                    activeColor:
                                                     Color(0xffCDDFB9),
-                                                selected: false,
-                                              ),
-                                              RadioListTile(
-                                                value: 2,
-                                                groupValue:
+                                                    selected: false,
+                                                  ),
+                                                  RadioListTile(
+                                                    value: 2,
+                                                    groupValue:
                                                     selectedRadioTile,
-                                                title: Text("German"),
-                                                onChanged: (val) {
-                                                  if (sharedPref
+                                                    title: Text("German"),
+                                                    onChanged: (val) {
+                                                      if (sharedPref
                                                           .getLanguage() !=
-                                                      'german') {
-                                                    sharedPref
-                                                        .setLanguage(
+                                                          'german') {
+                                                        sharedPref
+                                                            .setLanguage(
                                                             'german');
-                                                    Navigator.pop(
-                                                        context);
-                                                    Navigator.of(context).pushReplacementNamed('/loginGerman');
+                                                        Navigator.pop(
+                                                            context);
+                                                        Navigator.of(context).pushReplacementNamed('/loginGerman');
 
-                                                  }
-                                                  print(
-                                                      "Radio Tile pressed $val");
+                                                      }
+                                                      print(
+                                                          "Radio Tile pressed $val");
 
-                                                  setState(() {
-                                                    selectedRadioTile =
-                                                        val;
-                                                  });
-                                                },
-                                                activeColor:
+                                                      setState(() {
+                                                        selectedRadioTile =
+                                                            val;
+                                                      });
+                                                    },
+                                                    activeColor:
                                                     Color(0xffCDDFB9),
-                                                selected: false,
-                                              )
-                                            ],
+                                                    selected: false,
+                                                  )
+                                                ],
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                    );
-                                  });
+                                        );
+                                      });
                                 });
                           },
                           child: Column(
@@ -645,7 +647,7 @@ class _LoginPageState extends State<LoginPage> {
 
   }
 
-getDuration(String session_duration)
+  getDuration(String session_duration)
   {
     if (session_duration.contains("1;")){
       session_duration = "1";
