@@ -34,8 +34,10 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    email_controler.text = "";
-    pass_controler.text = "";
+    email_controler.text = "934298";
+    pass_controler.text = "123456789";
+    //no 934298
+    /// pass  123456789
   }
 
   @override
@@ -639,6 +641,7 @@ class _LoginPageState extends State<LoginPage> {
       sharedPref.setLoginStatus(status);
       sharedPref.setLanguage("english");
       Toast.show("Login", context);
+      Navigator.of(context).pushReplacementNamed('/dashboard');
     }else{
       Toast.show("Invalid user ", context);
     }
