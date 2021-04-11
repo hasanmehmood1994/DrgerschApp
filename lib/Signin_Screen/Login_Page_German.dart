@@ -25,7 +25,7 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
   int selectedRadioTile;
 
   int currentPage = 0;
-  SharedPref sharedPref;
+  SharedPref sharedPref=SharedPref();
   @override
   void initState() {
     // TODO: implement initState
@@ -44,7 +44,7 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
           body:  Column(
             children: [
               Expanded(
-                flex: 9,
+
                 child: Container(
                   child: Container(
                     //     margin: EdgeInsets.fromLTRB(0, MediaQuery.of(context).size.height/10, 0, 0),
@@ -351,193 +351,181 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
                   ),
                 ),
               ),
+              Container(
+                child: Row(
+                  children: [
+                    Expanded(
+                        flex: 1,
+                        child: InkWell(
 
-              Expanded(
-                flex: 1,
-                child:  Align(
-                  alignment: FractionalOffset.bottomCenter,
-                  child: Container(
-                    //        color: Color(0xffCDDFB9),
-                    child: Padding(
-                        padding: EdgeInsets.only(bottom: 10.0,top: 10.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                flex: 1,
-                                child: InkWell(
+                          child: Column(
+                            children: [
+                              Container(
 
-                                  child: Column(
-                                    children: [
-                                      Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.black,
+                                    ),
+                                    borderRadius: BorderRadius.all(Radius.circular(20))
+                                ),
+                                child: Padding(
+                                    padding: EdgeInsets.only(bottom: 3.0,top: 3.0,left: 15,right: 15),
+                                    child: Image.asset('assets/imprint.jpg',height: 30,width: 30,)),
 
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                              color: Colors.black,
-                                            ),
-                                            borderRadius: BorderRadius.all(Radius.circular(20))
-                                        ),
-                                        child: Padding(
-                                            padding: EdgeInsets.only(bottom: 3.0,top: 3.0,left: 15,right: 15),
-                                            child: Image.asset('assets/imprint.jpg',height: 30,width: 30,)),
+                              ),
+                              Text('Impressum',style: TextStyle(color: Colors.black,fontSize: 10,fontWeight: FontWeight.bold),)
+                            ],
+                          ),
+                        )),
 
-                                      ),
-                                      Text('Impressum',style: TextStyle(color: Colors.black,fontSize: 10,fontWeight: FontWeight.bold),)
-                                    ],
-                                  ),
-                                )),
+                    Expanded(
+                        flex: 1,
+                        child: InkWell(
+                          onTap: (){
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return StatefulBuilder(
+                                      builder: (context, setState) {
 
-                            Expanded(
-                                flex: 1,
-                                child: InkWell(
-                                  onTap: (){
-                                    showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return StatefulBuilder(
-                                              builder: (context, setState) {
+                                        return Dialog(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(20.0)), //this right here
+                                          child: Container(
+                                            height: 200,
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(12.0),
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: <Widget>[
 
-                                                return Dialog(
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                      BorderRadius.circular(20.0)), //this right here
-                                                  child: Container(
-                                                    height: 200,
-                                                    child: Padding(
-                                                      padding: const EdgeInsets.all(12.0),
-                                                      child: Column(
-                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: <Widget>[
+                                                  RadioListTile(
+                                                    value: 1,
+                                                    groupValue: selectedRadioTile,
+                                                    title: Text("English"),
+                                                    onChanged: (val) {
+                                                      if(sharedPref.getLanguage()!='english'){
+                                                        sharedPref.setLanguage('english');
+                                                        Navigator.pop(context);
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(builder: (context) => LoginPageGerman()),
+                                                        );                                            }
+                                                      print("Radio Tile pressed $val");
+                                                      setState(() {
+                                                        selectedRadioTile = val;
+                                                      });
+                                                    },
+                                                    activeColor: Color(0xffCDDFB9),
 
-                                                          RadioListTile(
-                                                            value: 1,
-                                                            groupValue: selectedRadioTile,
-                                                            title: Text("English"),
-                                                            onChanged: (val) {
-                                                              if(sharedPref.getLanguage()!='english'){
-                                                                sharedPref.setLanguage('english');
-                                                                Navigator.pop(context);
-                                                                Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(builder: (context) => LoginPageGerman()),
-                                                                );                                            }
-                                                              print("Radio Tile pressed $val");
-                                                              setState(() {
-                                                                selectedRadioTile = val;
-                                                              });
-                                                            },
-                                                            activeColor: Color(0xffCDDFB9),
-
-                                                            selected: false,
-                                                          ),
-                                                          RadioListTile(
-                                                            value: 2,
-                                                            groupValue: selectedRadioTile,
-                                                            title: Text("German"),
-                                                            onChanged: (val) {
-                                                              if(sharedPref.getLanguage()!='german'){
-                                                                sharedPref.setLanguage('german');
-                                                                Navigator.pop(context);
-                                                                Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(builder: (context) => LoginPageGerman()),
-                                                                );                                            }
-                                                              print("Radio Tile pressed $val");
-
-                                                              setState(() {
-                                                                selectedRadioTile = val;
-                                                              });                                          },
-                                                            activeColor: Color(0xffCDDFB9),
-                                                            selected: false,
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ),
+                                                    selected: false,
                                                   ),
-                                                );
-                                              }
-                                          );
-                                        }
-                                    );
-                                  },
+                                                  RadioListTile(
+                                                    value: 2,
+                                                    groupValue: selectedRadioTile,
+                                                    title: Text("German"),
+                                                    onChanged: (val) {
+                                                      if(sharedPref.getLanguage()!='german'){
+                                                        sharedPref.setLanguage('german');
+                                                        Navigator.pop(context);
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(builder: (context) => LoginPageGerman()),
+                                                        );                                            }
+                                                      print("Radio Tile pressed $val");
 
-                                  child: Column(
-                                    children: [
-                                      Container(
-
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                              color: Colors.black,
+                                                      setState(() {
+                                                        selectedRadioTile = val;
+                                                      });                                          },
+                                                    activeColor: Color(0xffCDDFB9),
+                                                    selected: false,
+                                                  )
+                                                ],
+                                              ),
                                             ),
-                                            borderRadius: BorderRadius.all(Radius.circular(20))
-                                        ),
-                                        child: Padding(
-                                            padding: EdgeInsets.only(bottom: 3.0,top: 3.0,left: 15,right: 15),
-                                            child: Image.asset('assets/clanguage.jpg',height: 30,width: 30,)),
+                                          ),
+                                        );
+                                      }
+                                  );
+                                }
+                            );
+                          },
 
-                                      ),
-                                      Text('Sprache ändern',style: TextStyle(color: Colors.black,fontSize: 10,fontWeight: FontWeight.bold),)
-                                    ],
-                                  ),
-                                )),
+                          child: Column(
+                            children: [
+                              Container(
 
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.black,
+                                    ),
+                                    borderRadius: BorderRadius.all(Radius.circular(20))
+                                ),
+                                child: Padding(
+                                    padding: EdgeInsets.only(bottom: 3.0,top: 3.0,left: 15,right: 15),
+                                    child: Image.asset('assets/clanguage.jpg',height: 30,width: 30,)),
 
-                            Expanded(
-                                flex: 1,
-                                child: InkWell(
-
-                                  child: Column(
-                                    children: [
-                                      Container(
-
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                              color: Colors.black,
-                                            ),
-                                            borderRadius: BorderRadius.all(Radius.circular(20))
-                                        ),
-                                        child: Padding(
-                                            padding: EdgeInsets.only(bottom: 3.0,top: 3.0,left: 15,right: 15),
-                                            child: Image.asset('assets/appointment.png',height: 30,width: 30,)),
-
-                                      ),
-                                      Text('Termine',style: TextStyle(color: Colors.black,fontSize: 10,fontWeight: FontWeight.bold),)
-                                    ],
-                                  ),
-                                )),
+                              ),
+                              Text('Sprache ändern',style: TextStyle(color: Colors.black,fontSize: 10,fontWeight: FontWeight.bold),)
+                            ],
+                          ),
+                        )),
 
 
-                            Expanded(
-                                flex: 1,
-                                child: InkWell(
+                    Expanded(
+                        flex: 1,
+                        child: InkWell(
 
-                                  child: Column(
-                                    children: [
-                                      Container(
+                          child: Column(
+                            children: [
+                              Container(
 
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                              color: Colors.black,
-                                            ),
-                                            borderRadius: BorderRadius.all(Radius.circular(20))
-                                        ),
-                                        child: Padding(
-                                            padding: EdgeInsets.only(bottom: 3.0,top: 3.0,left: 15,right: 15),
-                                            child: Image.asset('assets/settings.png',height: 30,width: 30,)),
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.black,
+                                    ),
+                                    borderRadius: BorderRadius.all(Radius.circular(20))
+                                ),
+                                child: Padding(
+                                    padding: EdgeInsets.only(bottom: 3.0,top: 3.0,left: 15,right: 15),
+                                    child: Image.asset('assets/appointment.png',height: 30,width: 30,)),
 
-                                      ),
-                                      Text('Privatsphäre',style: TextStyle(color: Colors.black,fontSize: 10,fontWeight: FontWeight.bold),)
-                                    ],
-                                  ),
-                                )),
+                              ),
+                              Text('Termine',style: TextStyle(color: Colors.black,fontSize: 10,fontWeight: FontWeight.bold),)
+                            ],
+                          ),
+                        )),
 
 
-                          ],
-                        )
-                    ),
-                  ),
+                    Expanded(
+                        flex: 1,
+                        child: InkWell(
+
+                          child: Column(
+                            children: [
+                              Container(
+
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.black,
+                                    ),
+                                    borderRadius: BorderRadius.all(Radius.circular(20))
+                                ),
+                                child: Padding(
+                                    padding: EdgeInsets.only(bottom: 3.0,top: 3.0,left: 15,right: 15),
+                                    child: Image.asset('assets/settings.png',height: 30,width: 30,)),
+
+                              ),
+                              Text('Privatsphäre',style: TextStyle(color: Colors.black,fontSize: 10,fontWeight: FontWeight.bold),)
+                            ],
+                          ),
+                        )),
+
+
+                  ],
                 ),
-
               ),
 
             ],

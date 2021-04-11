@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:drgerschapp/Sharef_Pref.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,8 @@ class Splash_Screen extends StatefulWidget {
 }
 
 class _Splash_ScreenState extends State<Splash_Screen> {
+  SharedPref sharedPref=SharedPref();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -32,10 +35,14 @@ class _Splash_ScreenState extends State<Splash_Screen> {
       ),
     );
   }
-  Future After_Splash_Screen()async {
-    return new Future.delayed(const Duration(seconds:1), () {
-//it will remove last class from stack
-      Navigator.of(context).pushReplacementNamed('/login');
+   After_Splash_Screen()async {
+     String sp = await sharedPref.getLanguage()??"english";
+    return new Future.delayed(const Duration(seconds: 2), () {
+      if( sp.contains('english')) {
+        Navigator.of(context).pushReplacementNamed('/login');
+      }else {
+        Navigator.of(context).pushReplacementNamed('/loginGerman');
+      }
     });
   }
   callapi()async{
