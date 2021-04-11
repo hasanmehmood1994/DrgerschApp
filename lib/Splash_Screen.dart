@@ -16,9 +16,9 @@ class _Splash_ScreenState extends State<Splash_Screen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    //After_Splash_Screen();
+    After_Splash_Screen();
   //  callapi();
-    getHttp();
+    //getHttp();
   }
   @override
   Widget build(BuildContext context) {
