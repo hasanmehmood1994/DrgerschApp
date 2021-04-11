@@ -634,24 +634,13 @@ class _LoginPageState extends State<LoginPage> {
     print('Response body: ${response.body.contains("language")}');
     print('Response body: ${response.body.contains("change_password")}');
 
-  }
-  void getHttp() async {
-    try {
-      var response = await Dio().get(
-          "https://www.ehausbesuch.de/app.cgi?action=app&userid=934298&passwort=123456789&version=1.0");
+    if(response.body.isEmpty){
+      Toast.show('Login Failed!', context);
+    }else{
+      sharedPref.setPatientNo(ptno);
+      sharedPref.setPass(pass);
 
-      String jsonsDataString = response.toString();
-      final jsonData = jsonDecode(jsonsDataString);
-
-//then you can get your values from the map
-      if(jsonData["session_id"] != null){
-       String session_id = jsonsDataString.substring(11,50);
-
-       print(session_id);
-        print("${jsonData["session_id"]}");
-      }
-    } catch (e) {
-      print(e);
     }
+
   }
 }
