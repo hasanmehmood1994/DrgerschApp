@@ -26,11 +26,6 @@ class SharedPref{
     return pass;
   }
 
-  getLoginDetails() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    int patientno = prefs.getInt('patientno');
-    String pass = prefs.getString('pass');
-  }
   setLoginStatus(bool status) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('loginstatus', status);

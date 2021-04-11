@@ -37,16 +37,37 @@ class _Splash_ScreenState extends State<Splash_Screen> {
       ),
     );
   }
-   After_Splash_Screen()async {
-     String sp = await sharedPref.getLanguage()??"english";
-    return new Future.delayed(const Duration(seconds: 2), () {
-      if( sp.contains('english')) {
-        Navigator.of(context).pushReplacementNamed('/login');
-      }else {
-        Navigator.of(context).pushReplacementNamed('/loginGerman');
-      }
-    });
+   After_Splash_Screen() async {
+
+     bool status = await sharedPref.getLoginStatus()??false;
+     return new Future.delayed(const Duration(seconds: 2), () async {
+       if(status== false) {
+         String sp = await sharedPref.getLanguage()??"english";
+         return new Future.delayed(const Duration(seconds: 2), () {
+           if( sp.contains('english')) {
+             Navigator.of(context).pushReplacementNamed('/login');
+           }else {
+             Navigator.of(context).pushReplacementNamed('/loginGerman');
+           }
+         });
+       }else {
+
+         String sp = await sharedPref.getLanguage()??"english";
+         return new Future.delayed(const Duration(seconds: 2), () {
+           if( sp.contains('english')) {
+             Navigator.of(context).pushReplacementNamed('/dashboard');
+           }else {
+             Navigator.of(context).pushReplacementNamed('/dashboard');
+           }
+         });
+       }
+     });
+
+
+
   }
+
+
   Login_User(String patientno,String pass,bool keeploginstatus)async{
 //no 934298
     /// pass  123456789
