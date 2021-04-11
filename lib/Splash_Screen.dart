@@ -20,8 +20,8 @@ class _Splash_ScreenState extends State<Splash_Screen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-   After_Splash_Screen();
-   // Login_User("9342981","123456789",false);
+  After_Splash_Screen();
+  // Login_User("934298","123456789",false);
  //   getHttp();
     //getHttp();
   }

@@ -197,8 +197,7 @@ class _LoginPageState extends State<LoginPage> {
                                           }else if(pass_controler.text.trim().toString().isEmpty){
                                             Toast.show('Please Enter Password',context);
                                           }else{
-                                            callapi(email_controler.text.trim().toString(),pass_controler.text.trim().toString());
-
+                                            Login_User_Api(email_controler.text.trim().toString(),pass_controler.text.trim().toString(),false);
                                           }
 
 
@@ -621,26 +620,74 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  callapi(String ptno,String pass)async{
+  Login_User_Api(String ptno,String pass,bool status)async{
     var url = 'https://www.ehausbesuch.de/app.cgi?action=app&userid='+ptno+'&passwort='+pass+'&version=1.0';
     var response = await http.get(url);
 
-    print(response.body.toString());
-    print(response.body.substring(11,50));
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body.isEmpty}');
-    print('Response body: ${response.body.contains("session_id")}');
-    print('Response body: ${response.body.contains("session_duration")}');
-    print('Response body: ${response.body.contains("language")}');
-    print('Response body: ${response.body.contains("change_password")}');
 
-    if(response.body.isEmpty){
-      Toast.show('Login Failed!', context);
-    }else{
+    print('Response status: ${response.statusCode}');
+
+
+    if(response.body.contains("session_id"))
+    {
+      print(response.body.substring(11,50));
+      print(response.body.substring(68,70));
       sharedPref.setPatientNo(ptno);
       sharedPref.setPass(pass);
-
+      sharedPref.setSessionId(""+response.body.substring(11,50));
+      sharedPref.setSessionDuration(""+getDuration(response.body.substring(68,70).toString()));
+      sharedPref.setLoginStatus(status);
+      sharedPref.setLanguage("english");
+      Toast.show("Login", context);
+    }else{
+      Toast.show("Invalid user ", context);
     }
 
+  }
+
+getDuration(String session_duration)
+  {
+    if (session_duration.contains("1;")){
+      session_duration = "1";
+    }if (session_duration.contains("2")){
+      session_duration = "2";
+    }if (session_duration.contains("3")){
+      session_duration = "3";
+    }if (session_duration.contains("4")){
+      session_duration = "4";
+    }if (session_duration.contains("5")){
+      session_duration = "5";
+    }if (session_duration.contains("6")){
+      session_duration = "6";
+    }if (session_duration.contains("7")){
+      session_duration = "7";
+    }if (session_duration.contains("8")){
+      session_duration = "8";
+    }if (session_duration.contains("9")){
+      session_duration = "9";
+    }if (session_duration.contains("10")){
+      session_duration = "10";
+    }if (session_duration.contains("11")){
+      session_duration = "11";
+    }if (session_duration.contains("12")){
+      session_duration = "12";
+    }if (session_duration.contains("13")){
+      session_duration = "13";
+    }if (session_duration.contains("14")){
+      session_duration = "14";
+    }if (session_duration.contains("15")){
+      session_duration = "15";
+    }if (session_duration.contains("16")){
+      session_duration = "16";
+    }if (session_duration.contains("17")){
+      session_duration = "17";
+    }if (session_duration.contains("18")){
+      session_duration = "18";
+    }if (session_duration.contains("19")){
+      session_duration = "19";
+    }if (session_duration.contains("20")){
+      session_duration = "20";
+    }
+    return session_duration;
   }
 }
