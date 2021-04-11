@@ -12,16 +12,22 @@ class _Dashboard_ScreenState extends State<Dashboard_Screen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-body: WebView(
-  onWebResourceError: (onerror){print("${onerror}");},
-  onPageFinished: (ff){print("done");},
-  onWebViewCreated: (cc){print("created");},
-  onPageStarted: (ss){print("started");},
-debuggingEnabled: true,
-javascriptMode: JavascriptMode.disabled,
+body: Column(
+  children:   [Expanded(
+    child: WebView(
+      onWebResourceError: (onerror){print("${onerror}");},
+      onPageFinished: (ff){print("done");},
+      onWebViewCreated: (cc){print("created");},
+      onPageStarted: (ss){print("started");},
+    debuggingEnabled: true,
+    javascriptMode: JavascriptMode.disabled,
 
-        initialUrl: 'https://www.drgersch.de/english-speaking-functional-medicine-doctor-in-ktown.html#imprint',
-      ),
+            initialUrl: 'https://www.drgersch.de/english-speaking-functional-medicine-doctor-in-ktown.html#imprint',
+          ),
+  ),Container(
+
+  )],
+),
       ),
     );
   }
