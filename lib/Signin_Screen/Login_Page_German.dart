@@ -220,7 +220,7 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
                                                           borderRadius:
                                                           BorderRadius.circular(20.0)), //this right here
                                                       child: Container(
-                                                        height: 300,
+                                                        height: 350,
                                                         child: Padding(
                                                           padding: const EdgeInsets.all(12.0),
                                                           child: Column(

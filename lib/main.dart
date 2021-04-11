@@ -19,13 +19,12 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginPage(),
         '/loginGerman': (context) => LoginPageGerman(),
         '/dashboard': (context) => Dashboard_Screen(),
-
-//  I love You
       },
       debugShowCheckedModeBanner: false,
 
       theme: ThemeData(
         accentColor: Color(0xffCDDFB9),
+        primaryColor: Color(0xffCDDFB9)
 
       ),
 

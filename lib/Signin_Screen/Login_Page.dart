@@ -1,9 +1,14 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:drgerschapp/Language.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_connect/http/src/response/response.dart';
+import 'package:http/http.dart' as http;
+import 'package:toast/toast.dart';
 
 import '../Sharef_Pref.dart';
-import 'Login_Page_German.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -186,7 +191,18 @@ class _LoginPageState extends State<LoginPage> {
                                     Expanded(
                                       child: RaisedButton(
                                         shape: StadiumBorder(),
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          if(email_controler.text.trim().toString().isEmpty){
+                                            Toast.show('Please Enter Patient Number',context);
+                                          }else if(pass_controler.text.trim().toString().isEmpty){
+                                            Toast.show('Please Enter Password',context);
+                                          }else{
+                                            callapi(email_controler.text.trim().toString(),pass_controler.text.trim().toString());
+
+                                          }
+
+
+                                        },
                                         child: Text("Login"),
                                         color: Color(0xffCDDFB9),
                                       ),
@@ -605,5 +621,37 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  setSelectedRadioTile(int val) {}
+  callapi(String ptno,String pass)async{
+    var url = 'https://www.ehausbesuch.de/app.cgi?action=app&userid='+ptno+'&passwort='+pass+'&version=1.0';
+    var response = await http.get(url);
+
+    print(response.body.toString());
+    print(response.body.substring(11,50));
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body.isEmpty}');
+    print('Response body: ${response.body.contains("session_id")}');
+    print('Response body: ${response.body.contains("session_duration")}');
+    print('Response body: ${response.body.contains("language")}');
+    print('Response body: ${response.body.contains("change_password")}');
+
+  }
+  void getHttp() async {
+    try {
+      var response = await Dio().get(
+          "https://www.ehausbesuch.de/app.cgi?action=app&userid=934298&passwort=123456789&version=1.0");
+
+      String jsonsDataString = response.toString();
+      final jsonData = jsonDecode(jsonsDataString);
+
+//then you can get your values from the map
+      if(jsonData["session_id"] != null){
+       String session_id = jsonsDataString.substring(11,50);
+
+       print(session_id);
+        print("${jsonData["session_id"]}");
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 }
