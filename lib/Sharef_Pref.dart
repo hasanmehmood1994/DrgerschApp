@@ -24,4 +24,16 @@ class SharedPref{
     return loginstatus;
 
   }
+
+  setLanguage(String language) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('Language', language);
+  }
+
+  getLanguage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String language = prefs.getString('Language')??'english';
+    return language;
+
+  }
 }
