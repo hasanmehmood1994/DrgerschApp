@@ -29,7 +29,9 @@ getData();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+
       child: Scaffold(
+ floatingActionButton: FloatingActionButton(child: Icon(Icons.logout),onPressed: (){sharedPref.setLoginStatus(false);},),
 body: Column(
   children:   [Expanded(
     child: WebView(
