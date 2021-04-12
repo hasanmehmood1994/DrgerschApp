@@ -1,9 +1,11 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:drgerschapp/DashBoard_Screen/Dashboard_Screen.dart';
 import 'package:drgerschapp/Language.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_page_transition/flutter_page_transition.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:http/http.dart' as http;
 import 'package:toast/toast.dart';
@@ -643,7 +645,12 @@ class _LoginPageState extends State<LoginPage> {
       sharedPref.setLoginStatus(status);
       sharedPref.setLanguage("english");
       Toast.show("Login", context);
-      Navigator.of(context).pushReplacementNamed('/dashboard');
+
+      Navigator.of(context).push(PageTransition(
+          duration: const Duration(milliseconds: 1000),
+          type: PageTransitionType.transferUp,
+          child: Dashboard_Screen(ptno,pass,""+response.body.substring(11,50),""+getDuration(response.body.substring(68,70).toString()))));
+
     }else{
       Toast.show("Invalid user ", context);
     }

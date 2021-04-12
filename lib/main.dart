@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => Splash_Screen(),
         '/login': (context) => LoginPage(),
         '/loginGerman': (context) => LoginPageGerman(),
-        '/dashboard': (context) => Dashboard_Screen(),
+
       },
       debugShowCheckedModeBanner: false,
 
