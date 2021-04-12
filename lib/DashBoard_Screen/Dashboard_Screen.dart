@@ -299,7 +299,7 @@ body: Column(
       shape: RoundedRectangleBorder(
           borderRadius:
           BorderRadius.circular(20.0)),
-      content: Text("Do you want to receive notifications on your phone about new messages?"),
+      content: Text("Do you want to receive Email notifications on your phone about new messages?"),
       actions: [
         cancelButton,
         continueButton,
