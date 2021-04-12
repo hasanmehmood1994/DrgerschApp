@@ -627,6 +627,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Login_User_Api(String ptno,String pass,bool status)async{
+    showLoaderDialog(context);
     var url = 'https://www.ehausbesuch.de/app.cgi?action=app&userid='+ptno+'&passwort='+pass+'&version=1.0';
     var response = await http.get(url);
 
@@ -645,7 +646,7 @@ class _LoginPageState extends State<LoginPage> {
       sharedPref.setLoginStatus(status);
       sharedPref.setLanguage("english");
       Toast.show("Login", context);
-
+      Navigator.pop(context);
       Navigator.of(context).push(PageTransition(
           duration: const Duration(milliseconds: 1000),
           type: PageTransitionType.transferUp,
@@ -653,10 +654,25 @@ class _LoginPageState extends State<LoginPage> {
 
     }else{
       Toast.show("Invalid user ", context);
+      Navigator.pop(context);
     }
 
   }
-
+  showLoaderDialog(BuildContext context){
+    AlertDialog alert=AlertDialog(
+      content: new Row(
+        children: [
+          CircularProgressIndicator(),
+          Container(margin: EdgeInsets.only(left: 7),child:Text("Login User Please Wait..." )),
+        ],),
+    );
+    showDialog(barrierDismissible: false,
+      context:context,
+      builder:(BuildContext context){
+        return alert;
+      },
+    );
+  }
   getDuration(String session_duration)
   {
     if (session_duration.contains("1;")){
