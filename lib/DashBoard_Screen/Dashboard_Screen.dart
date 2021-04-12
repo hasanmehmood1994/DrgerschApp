@@ -278,6 +278,7 @@ class _Dashboard_ScreenState extends State<Dashboard_Screen> {
         }
       if(value=='4')
         {
+          sharedPref.setLoginStatus(false);
           Navigator.pop(context);
         }
 
