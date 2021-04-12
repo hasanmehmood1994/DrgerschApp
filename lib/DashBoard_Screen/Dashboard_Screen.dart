@@ -169,6 +169,7 @@ body: Column(
               child: GestureDetector(
                   onTapDown: (TapDownDetails details) {
                     _showPopupMenu(details.globalPosition);
+
                   },
                 child: Column(
                   children: [
@@ -211,10 +212,10 @@ body: Column(
     );
   }
 
-  _showPopupMenu(Offset offset) async {
+ _showPopupMenu(Offset offset)  async{
     double left = offset.dx;
     double top = offset.dy;
-    await showMenu(
+     await showMenu(
       context: context,
       position: RelativeRect.fromLTRB(left, top, 0, 0),
       items: [
@@ -230,9 +231,88 @@ body: Column(
     ).then((value){
 
       if(value!=null)
-        print(value);
+
+        if(value=='1'){
+          print(value);
+         showMessageDialog(context);
+        }
+
+      if(value=='2'){
+        showEmailDialog(context);
+      }
 
     });
+  }
+
+  showMessageDialog(BuildContext context) {
+
+    // set up the buttons
+    Widget cancelButton = FlatButton(
+      child: Text("No",style: TextStyle(color: Color(0xffb6de88)),),
+      onPressed:  () {
+        Navigator.pop(context);
+      },
+    );
+    Widget continueButton = FlatButton(
+      child: Text("Yes",style: TextStyle(color: Color(0xffb6de88)),),
+      onPressed:  () {},
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      shape: RoundedRectangleBorder(
+          borderRadius:
+          BorderRadius.circular(20.0)),
+      content: Text("Do you want to receive notifications on your phone about new messages?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+
+  showEmailDialog(BuildContext context) {
+
+    // set up the buttons
+    Widget cancelButton = FlatButton(
+      child: Text("No",style: TextStyle(color: Color(0xffb6de88)),),
+      onPressed:  () {
+        Navigator.pop(context);
+      },
+    );
+    Widget continueButton = FlatButton(
+      child: Text("Yes",style: TextStyle(color: Color(0xffb6de88)),),
+      onPressed:  () {},
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      shape: RoundedRectangleBorder(
+          borderRadius:
+          BorderRadius.circular(20.0)),
+      content: Text("Do you want to receive notifications on your phone about new messages?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 
 }
@@ -245,5 +325,4 @@ body: Column(
   print(""+duration+"" +session_id+""+pass+p_no);
  _controller.loadUrl("https://www.ehausbesuch.de/index.cgi?app=welcome&userid=${p_no}&passwort=${pass}").catchError((onError){print("$onError");});
 }
-
 
