@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-
+import 'package:http/http.dart' as http;
 class Dashboard_Screen extends StatefulWidget {
   String ptno;
   String pass;
@@ -56,9 +56,13 @@ class _Dashboard_ScreenState extends State<Dashboard_Screen> {
             children: [
               Visibility(
                 visible: loader_visibly,
-                child: Align(
-                    alignment: Alignment.center,
-                    child: CircularProgressIndicator()),
+                child: Container(
+                  height:400,
+                  width: 400,
+                  child: Align(
+                      alignment: Alignment.center,
+                      child: CircularProgressIndicator()),
+                ),
               ),
               Expanded(
                 child:
@@ -386,25 +390,23 @@ getData() async {
     //         pass);
     //controller.loadUrl("https://www.ehausbesuch.de/index.cgi?app=welcome&userid=${ptno}&passwort=${pass}").catchError((onError){print("$onError");});
   }
-  showLoaderDialog(BuildContext context){
-    AlertDialog alert=AlertDialog(
-      content: new Row(
-        children: [
-          CircularProgressIndicator(),
-          Container(margin: EdgeInsets.only(left: 7),child:Text("Login User Please Wait..." )),
-        ],),
-    );
-    showDialog(barrierDismissible: false,
-      context:context,
-      builder:(BuildContext context){
-        return alert;
-      },
-    );
-  }
+
   void On_Click_message() {controller.loadUrl("https://www.ehausbesuch.de/index.cgi?app=nachrichten&userid=" + widget.ptno + "&passwort=" + widget.pass);}
 
   void On_Click_Me() {   controller.loadUrl("https://www.ehausbesuch.de/index.cgi?app=diagnosen&userid=" +widget.ptno  + "&passwort=" + widget.pass);}
 
   void On_Click_Appointment() {
     controller.loadUrl("https://www.ehausbesuch.de/termine.cgi?app=buchen&userid=" +widget.ptno+ "&passwort=" + widget.pass);}
+
+  Upload_Fcmtoken_Api(String ptno,String pass,bool status)async{
+
+
+    var url = 'https://www.ehausbesuch.de/app.cgi?action=app&userid='+ptno+'&passwort='+pass+'&version=1.0';
+    var response = await http.get(url);
+
+
+    print('Response status: ${response.statusCode}');
+
+
+  }
 }

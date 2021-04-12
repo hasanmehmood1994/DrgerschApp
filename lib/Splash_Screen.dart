@@ -4,9 +4,12 @@ import 'package:dio/dio.dart';
 import 'package:drgerschapp/Sharef_Pref.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_page_transition/flutter_page_transition.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:toast/toast.dart';
+
+import 'DashBoard_Screen/Dashboard_Screen.dart';
 
 class Splash_Screen extends StatefulWidget {
   @override
@@ -53,11 +56,22 @@ class _Splash_ScreenState extends State<Splash_Screen> {
        }else {
 
          String sp = await sharedPref.getLanguage()??"english";
+         String ptno=await sharedPref.getPatientNo();
+         String pass=await sharedPref.getPass();
+         String sid=await sharedPref.getSessionId();
+         String sd=await sharedPref.getSessionDuration();
          return new Future.delayed(const Duration(seconds: 2), () {
            if( sp.contains('english')) {
-             Navigator.of(context).pushReplacementNamed('/dashboard');
+
+             Navigator.of(context).push(PageTransition(
+                 duration: const Duration(milliseconds: 1000),
+                 type: PageTransitionType.transferUp,
+                 child: Dashboard_Screen(ptno,pass,""+sid,""+sd)));
            }else {
-             Navigator.of(context).pushReplacementNamed('/dashboard');
+             Navigator.of(context).push(PageTransition(
+                 duration: const Duration(milliseconds: 1000),
+                 type: PageTransitionType.transferUp,
+                 child: Dashboard_Screen(ptno,pass,""+sid,""+sd)));
            }
          });
        }
