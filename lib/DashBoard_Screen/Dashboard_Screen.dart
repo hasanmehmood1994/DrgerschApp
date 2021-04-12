@@ -240,7 +240,6 @@ body: Column(
       if(value=='2'){
         showEmailDialog(context);
       }
-
     });
   }
 
