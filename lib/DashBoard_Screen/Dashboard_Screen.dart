@@ -266,6 +266,15 @@ class _Dashboard_ScreenState extends State<Dashboard_Screen> {
       if(value=='2'){
         showEmailDialog(context);
       }
+      if(value=='3')
+        {
+          controller.loadUrl("https://www.ehausbesuch.de/index.cgi?app=einstellungen&userid=" + widget.ptno + "&passwort=" +widget.pass);
+          sharedPref.setLoginStatus(false);
+        }
+      if(value=='4')
+        {
+          Navigator.pop(context);
+        }
 
     });
   }
@@ -276,12 +285,16 @@ class _Dashboard_ScreenState extends State<Dashboard_Screen> {
     Widget cancelButton = FlatButton(
       child: Text("No",style: TextStyle(color: Color(0xffb6de88)),),
       onPressed:  () {
+       controller.loadUrl("https://www.ehausbesuch.de/index.cgi?app=einstellungen&userid=" + widget.ptno + "&passwort=" +widget.pass + "&push_notifications=n");
         Navigator.pop(context);
       },
     );
     Widget continueButton = FlatButton(
       child: Text("Yes",style: TextStyle(color: Color(0xffb6de88)),),
-      onPressed:  () {},
+      onPressed:  () {
+        controller.loadUrl("https://www.ehausbesuch.de/index.cgi?app=einstellungen&userid=" + widget.ptno + "&passwort=" +widget.pass + "&push_notifications=y");
+        Navigator.pop(context);
+      },
     );
 
     // set up the AlertDialog
@@ -312,12 +325,16 @@ class _Dashboard_ScreenState extends State<Dashboard_Screen> {
     Widget cancelButton = FlatButton(
       child: Text("No",style: TextStyle(color: Color(0xffb6de88)),),
       onPressed:  () {
+        controller.loadUrl("https://www.ehausbesuch.de/index.cgi?app=einstellungen&userid=" + widget.ptno + "&email=" + widget.pass + "&emails_empfangen=n");
         Navigator.pop(context);
       },
     );
     Widget continueButton = FlatButton(
       child: Text("Yes",style: TextStyle(color: Color(0xffb6de88)),),
-      onPressed:  () {},
+      onPressed:  () {
+        controller.loadUrl("https://www.ehausbesuch.de/index.cgi?app=einstellungen&userid=" + widget.ptno + "&email=" + widget.pass + "&emails_empfangen=y");
+        Navigator.pop(context);
+      },
     );
 
     // set up the AlertDialog
