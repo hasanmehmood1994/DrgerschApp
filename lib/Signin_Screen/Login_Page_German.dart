@@ -18,6 +18,7 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
   final GlobalKey<FormFieldState> _emailFormKey = GlobalKey<FormFieldState>();
   final GlobalKey<FormFieldState> _passFormKey = GlobalKey<FormFieldState>();
   bool validate = false;
+  bool loginstatus = false;
 
   bool absscurestatus=true;
   bool valuefirst= false;
@@ -175,6 +176,7 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
                                         value: this.valuefirst,
                                         onChanged: (bool value) {
                                           setState(() {
+                                            loginstatus  = value;
                                             this.valuefirst = value;
                                           });
                                         },
@@ -199,7 +201,15 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
                                       Expanded(
                                         child: RaisedButton(
                                           shape: StadiumBorder(),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            if(email_controler.text.trim().toString().isEmpty){
+                                              Toast.show('Please Enter Patient Number',context);
+                                            }else if(pass_controler.text.trim().toString().isEmpty){
+                                              Toast.show('Please Enter Password',context);
+                                            }else{
+                                              Login_User_Api(email_controler.text.trim().toString(),pass_controler.text.trim().toString(),loginstatus);
+                                            }
+                                          },
                                           child: Text("Einloggen"),
                                           color: Color(0xffCDDFB9),
                                         ),
@@ -547,7 +557,6 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
     );
   }
 
-
   Login_User_Api(String ptno,String pass,bool status)async{
     var url = 'https://www.ehausbesuch.de/app.cgi?action=app&userid='+ptno+'&passwort='+pass+'&version=1.0';
     var response = await http.get(url);
@@ -565,8 +574,9 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
       sharedPref.setSessionId(""+response.body.substring(11,50));
       sharedPref.setSessionDuration(""+getDuration(response.body.substring(68,70).toString()));
       sharedPref.setLoginStatus(status);
-      sharedPref.setLanguage("german");
+      sharedPref.setLanguage("english");
       Toast.show("Login", context);
+      Navigator.of(context).pushReplacementNamed('/dashboard');
     }else{
       Toast.show("Invalid user ", context);
     }
@@ -618,6 +628,5 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
     }
     return session_duration;
   }
-
 
 }
