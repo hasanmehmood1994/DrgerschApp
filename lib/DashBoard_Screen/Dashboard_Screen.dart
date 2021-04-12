@@ -15,7 +15,9 @@ String session_id;
 String pass;
 String p_no;
 String duration;
+WebViewController _controller;
 class _Dashboard_ScreenState extends State<Dashboard_Screen> {
+
   @override
   void initState() {
     // TODO: implement initState
@@ -33,18 +35,23 @@ getData();
       child: Scaffold(
  floatingActionButton: FloatingActionButton(child: Icon(Icons.logout),onPressed: (){sharedPref.setLoginStatus(false);},),
 body: Column(
-  children:   [Expanded(
+  children:   [
+    Expanded(
     child: WebView(
+
       onWebResourceError: (onerror){print("${onerror}");},
       onPageFinished: (ff){print("done");},
-      onWebViewCreated: (cc){print("created");},
+      onWebViewCreated: (WebViewController webViewController) {
+        _controller = webViewController;
+      },
       onPageStarted: (ss){print("started");},
     debuggingEnabled: true,
     javascriptMode: JavascriptMode.disabled,
 
-            initialUrl: "https://www.ehausbesuch.de/index.cgi?app=welcome&userid=${p_no}&passwort=${pass}",
           ),
-  ),Container(
+  ),
+
+    Container(
 
   )],
 ),
@@ -59,4 +66,5 @@ body: Column(
   pass=await sharedPref.getPass();
   p_no=await sharedPref.getPatientNo();
   print(""+duration+"" +session_id+""+pass+p_no);
+ _controller.loadUrl("https://www.ehausbesuch.de/index.cgi?app=welcome&userid=${p_no}&passwort=${pass}").catchError((onError){print("$onError");});
 }
