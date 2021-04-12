@@ -647,7 +647,7 @@ class _LoginPageState extends State<LoginPage> {
       sharedPref.setLanguage("english");
       Toast.show("Login", context);
       Navigator.pop(context);
-
+     // Navigator.of(context).pushReplacementNamed('/');
       Navigator.of(context).push(PageTransition(
           duration: const Duration(milliseconds: 1000),
           type: PageTransitionType.transferUp,

@@ -46,193 +46,198 @@ class _Dashboard_ScreenState extends State<Dashboard_Screen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
-          children: [
-            Visibility(
-              visible: loader_visibly,
-              child: Align(
-                  alignment: Alignment.center,
-                  child: CircularProgressIndicator()),
-            ),
-            Expanded(
-              child:
-              WebView(
-                onWebResourceError: (onerror) {
-                  print("${onerror}");
-                  Toast.show("Some thing went wrong", context);
-                  print("done");setState(() {
-                    loader_visibly=false;
-                  });
-                 // Navigator.pop(context);
-                },
-                onPageFinished: (ff) {
-                  print("done");setState(() {
-                    loader_visibly=false;
-                  });
-                 // Navigator.pop(context);
-                },
-                onWebViewCreated: (WebViewController webViewController) {
-                  controller = webViewController;
-                },
-                onPageStarted: (ss) {
-                  print("started");
-                },
-                debuggingEnabled: true,
-                javascriptMode: JavascriptMode.unrestricted,
-                initialUrl: 'https://www.ehausbesuch.de/index.cgi?app=welcome&userid=${widget.ptno}&passwort=${widget.pass}',
+    return WillPopScope(
+      onWillPop: (){
+        return ;
+      },
+      child: SafeArea(
+        child: Scaffold(
+          body: Column(
+            children: [
+              Visibility(
+                visible: loader_visibly,
+                child: Align(
+                    alignment: Alignment.center,
+                    child: CircularProgressIndicator()),
               ),
-            ),
-            Container(
-              child: Row(
-                children: [
-                  Expanded(
-                      flex: 1,
-                      child: InkWell(
-                        onTap: () {On_Click_message();},
-                        child: Column(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.black,
-                                  ),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20))),
-                              child: Padding(
-                                  padding: EdgeInsets.only(
-                                      bottom: 3.0,
-                                      top: 3.0,
-                                      left: 15,
-                                      right: 15),
-                                  child: Image.asset(
-                                    'assets/messaging.png',
-                                    height: 30,
-                                    width: 30,
-                                  )),
-                            ),
-                            Text(
-                              'Messaging',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                      )),
-                  Expanded(
-                      flex: 1,
-                      child: InkWell(
-                        onTap: () {On_Click_Me();},
-                        child: Column(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.black,
-                                  ),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20))),
-                              child: Padding(
-                                  padding: EdgeInsets.only(
-                                      bottom: 3.0,
-                                      top: 3.0,
-                                      left: 15,
-                                      right: 15),
-                                  child: Image.asset(
-                                    'assets/me.png',
-                                    height: 30,
-                                    width: 30,
-                                  )),
-                            ),
-                            Text(
-                              'Me',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                      )),
-                  Expanded(
-                      flex: 1,
-                      child: InkWell(
-                        onTap: () {On_Click_Appointment();},
-                        child: Column(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.black,
-                                  ),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20))),
-                              child: Padding(
-                                  padding: EdgeInsets.only(
-                                      bottom: 3.0,
-                                      top: 3.0,
-                                      left: 15,
-                                      right: 15),
-                                  child: Image.asset(
-                                    'assets/appointment.png',
-                                    height: 30,
-                                    width: 30,
-                                  )),
-                            ),
-                            Text(
-                              'Appointment',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                      )),
-                  Expanded(
-                      flex: 1,
-                      child: GestureDetector(
-                        onTapDown: (TapDownDetails details) {
-                          _showPopupMenu(details.globalPosition);
-                        },
-                        child: Column(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.black,
-                                  ),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20))),
-                              child: Padding(
-                                  padding: EdgeInsets.only(
-                                      bottom: 3.0,
-                                      top: 3.0,
-                                      left: 15,
-                                      right: 15),
-                                  child: Image.asset(
-                                    'assets/settings.png',
-                                    height: 30,
-                                    width: 30,
-                                  )),
-                            ),
-                            Text(
-                              'Settings',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                      )),
-                ],
+              Expanded(
+                child:
+                WebView(
+                  onWebResourceError: (onerror) {
+                    print("${onerror}");
+                    Toast.show("Some thing went wrong", context);
+                    print("done");setState(() {
+                      loader_visibly=false;
+                    });
+                   // Navigator.pop(context);
+                  },
+                  onPageFinished: (ff) {
+                    print("done");setState(() {
+                      loader_visibly=false;
+                    });
+                   // Navigator.pop(context);
+                  },
+                  onWebViewCreated: (WebViewController webViewController) {
+                    controller = webViewController;
+                  },
+                  onPageStarted: (ss) {
+                    print("started");
+                  },
+                  debuggingEnabled: true,
+                  javascriptMode: JavascriptMode.unrestricted,
+                  initialUrl: 'https://www.ehausbesuch.de/index.cgi?app=welcome&userid=${widget.ptno}&passwort=${widget.pass}',
+                ),
               ),
-            ),
-          ],
+              Container(
+                child: Row(
+                  children: [
+                    Expanded(
+                        flex: 1,
+                        child: InkWell(
+                          onTap: () {On_Click_message();},
+                          child: Column(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.black,
+                                    ),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20))),
+                                child: Padding(
+                                    padding: EdgeInsets.only(
+                                        bottom: 3.0,
+                                        top: 3.0,
+                                        left: 15,
+                                        right: 15),
+                                    child: Image.asset(
+                                      'assets/messaging.png',
+                                      height: 30,
+                                      width: 30,
+                                    )),
+                              ),
+                              Text(
+                                'Messaging',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                        )),
+                    Expanded(
+                        flex: 1,
+                        child: InkWell(
+                          onTap: () {On_Click_Me();},
+                          child: Column(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.black,
+                                    ),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20))),
+                                child: Padding(
+                                    padding: EdgeInsets.only(
+                                        bottom: 3.0,
+                                        top: 3.0,
+                                        left: 15,
+                                        right: 15),
+                                    child: Image.asset(
+                                      'assets/me.png',
+                                      height: 30,
+                                      width: 30,
+                                    )),
+                              ),
+                              Text(
+                                'Me',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                        )),
+                    Expanded(
+                        flex: 1,
+                        child: InkWell(
+                          onTap: () {On_Click_Appointment();},
+                          child: Column(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.black,
+                                    ),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20))),
+                                child: Padding(
+                                    padding: EdgeInsets.only(
+                                        bottom: 3.0,
+                                        top: 3.0,
+                                        left: 15,
+                                        right: 15),
+                                    child: Image.asset(
+                                      'assets/appointment.png',
+                                      height: 30,
+                                      width: 30,
+                                    )),
+                              ),
+                              Text(
+                                'Appointment',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                        )),
+                    Expanded(
+                        flex: 1,
+                        child: GestureDetector(
+                          onTapDown: (TapDownDetails details) {
+                            _showPopupMenu(details.globalPosition);
+                          },
+                          child: Column(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.black,
+                                    ),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20))),
+                                child: Padding(
+                                    padding: EdgeInsets.only(
+                                        bottom: 3.0,
+                                        top: 3.0,
+                                        left: 15,
+                                        right: 15),
+                                    child: Image.asset(
+                                      'assets/settings.png',
+                                      height: 30,
+                                      width: 30,
+                                    )),
+                              ),
+                              Text(
+                                'Settings',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                        )),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

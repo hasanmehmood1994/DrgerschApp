@@ -40,7 +40,7 @@ class _Splash_ScreenState extends State<Splash_Screen> {
    After_Splash_Screen() async {
 
      bool status = await sharedPref.getLoginStatus()??false;
-     return new Future.delayed(const Duration(seconds: 2), () async {
+     return new Future.delayed(const Duration(seconds: 1), () async {
        if(status== false) {
          String sp = await sharedPref.getLanguage()??"english";
          return new Future.delayed(const Duration(seconds: 2), () {
