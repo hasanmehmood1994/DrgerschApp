@@ -300,7 +300,7 @@ class _LoginPageState extends State<LoginPage> {
                               height: 20,
                             ),
                             InkWell(
-                              child: Text('Forgot Password?',
+                              child: Text('Forgot Your Password?',
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
