@@ -1,9 +1,11 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:drgerschapp/DashBoard_Screen/Dashboard_Screen.dart';
 import 'package:drgerschapp/Language.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_page_transition/flutter_page_transition.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:http/http.dart' as http;
 import 'package:toast/toast.dart';
@@ -625,6 +627,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Login_User_Api(String ptno,String pass,bool status)async{
+    showLoaderDialog(context);
     var url = 'https://www.ehausbesuch.de/app.cgi?action=app&userid='+ptno+'&passwort='+pass+'&version=1.0';
     var response = await http.get(url);
 
@@ -643,13 +646,34 @@ class _LoginPageState extends State<LoginPage> {
       sharedPref.setLoginStatus(status);
       sharedPref.setLanguage("english");
       Toast.show("Login", context);
-      Navigator.of(context).pushReplacementNamed('/dashboard');
+      Navigator.pop(context);
+     // Navigator.of(context).pushReplacementNamed('/');
+      Navigator.of(context).push(PageTransition(
+          duration: const Duration(milliseconds: 1000),
+          type: PageTransitionType.transferUp,
+          child: Dashboard_Screen(ptno,pass,""+response.body.substring(11,50),""+getDuration(response.body.substring(68,70).toString()))));
+
     }else{
       Toast.show("Invalid user ", context);
+      Navigator.pop(context);
     }
 
   }
-
+  showLoaderDialog(BuildContext context){
+    AlertDialog alert=AlertDialog(
+      content: new Row(
+        children: [
+          CircularProgressIndicator(),
+          Container(margin: EdgeInsets.only(left: 7),child:Text("Login User Please Wait..." )),
+        ],),
+    );
+    showDialog(barrierDismissible: false,
+      context:context,
+      builder:(BuildContext context){
+        return alert;
+      },
+    );
+  }
   getDuration(String session_duration)
   {
     if (session_duration.contains("1;")){

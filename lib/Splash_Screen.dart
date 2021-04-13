@@ -21,29 +21,32 @@ class _Splash_ScreenState extends State<Splash_Screen> {
     // TODO: implement initState
     super.initState();
   After_Splash_Screen();
-
+  // Login_User("934298","123456789",false);
+ //   getHttp();
+    //getHttp();
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-              flex: 5,
-              child: Image.asset("assets/logo.png")),
-          Expanded(
-              flex: 2,
-              child: CircularProgressIndicator()),
-          Expanded(
-              flex: 3,
-              child: Text("Dr. Gersch",style: TextStyle(color: Colors.black),))
-        ],
-      )
+        body: Column(
+          children: [
+            Expanded(
+                flex: 5,
+                child: Image.asset("assets/logo.png")),
+            Expanded(
+                flex: 2,
+                child: CircularProgressIndicator()),
+            Expanded(
+                flex: 3,
+                child: Text("Dr. Gersch",style: TextStyle(color: Colors.black),))
+          ],
+        )
     );
   }
    After_Splash_Screen() async {
 
      bool status = await sharedPref.getLoginStatus()??false;
+
        if(status== false) {
          String sp = await sharedPref.getLanguage()??"english";
          return new Future.delayed(const Duration(seconds: 2), () {
