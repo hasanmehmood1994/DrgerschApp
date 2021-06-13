@@ -4,9 +4,14 @@ import 'package:dio/dio.dart';
 import 'package:drgerschapp/Sharef_Pref.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_page_transition/flutter_page_transition.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:toast/toast.dart';
+
+import 'DashBoard_Screen/Dashboard_Screen.dart';
+import 'DashBoard_Screen/Dashboard_Screen.dart';
+import 'DashBoard_Screen/Dashboard_Screen_German.dart';
 
 class Splash_Screen extends StatefulWidget {
   @override
@@ -47,6 +52,7 @@ class _Splash_ScreenState extends State<Splash_Screen> {
 
      bool status = await sharedPref.getLoginStatus()??false;
 
+
        if(status== false) {
          String sp = await sharedPref.getLanguage()??"english";
          return new Future.delayed(const Duration(seconds: 2), () {
@@ -59,12 +65,21 @@ class _Splash_ScreenState extends State<Splash_Screen> {
        }else {
 
          String sp = await sharedPref.getLanguage()??"english";
+         String ptno = await sharedPref.getPatientNo();
+         String pass = await sharedPref.getPass();
+         String sessionid = await sharedPref.getSessionId();
+         String duration = await sharedPref.getSessionDuration();
          return new Future.delayed(const Duration(seconds: 2), () {
            if( sp.contains('english')) {
-             Navigator.of(context).pushReplacementNamed('/dashboard');
+             Navigator.of(context).push(PageTransition(
+                 duration: const Duration(milliseconds: 1000),
+                 type: PageTransitionType.transferUp,
+                 child: Dashboard_Screen(ptno, pass, sessionid, duration) ));
            }else {
-             Navigator.of(context).pushReplacementNamed('/dashboard');
-           }
+             Navigator.of(context).push(PageTransition(
+                 duration: const Duration(milliseconds: 1000),
+                 type: PageTransitionType.transferUp,
+                 child: Dashboard_Screen_German(ptno, pass, sessionid, duration) ));           }
          });
        }
 

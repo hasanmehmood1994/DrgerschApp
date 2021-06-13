@@ -4,12 +4,19 @@ import 'package:drgerschapp/Splash_Screen.dart';
 import 'package:flutter/material.dart';
 
 import 'DashBoard_Screen/Dashboard_Screen.dart';
+import 'DashBoard_Screen/Dashboard_Screen.dart';
+import 'DashBoard_Screen/Dashboard_Screen_German.dart';
+import 'Sharef_Pref.dart';
+import 'Sharef_Pref.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+
+  SharedPref sharedPref = SharedPref();
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -18,6 +25,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => Splash_Screen(),
         '/login': (context) => LoginPage(),
         '/loginGerman': (context) => LoginPageGerman(),
+
 
       },
       debugShowCheckedModeBanner: false,

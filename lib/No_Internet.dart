@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 
 import 'Sharef_Pref.dart';
 
@@ -64,7 +65,7 @@ class _No_InternetState extends State<No_Internet> {
         After_Splash_Screen();
       }
     } on SocketException catch (_) {
-
+      Toast.show("No Internet Connection Available", context);
     }
   }
 
