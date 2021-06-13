@@ -8,6 +8,7 @@ import 'package:flutter_page_transition/flutter_page_transition.dart';
 import 'package:toast/toast.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../Signin_Screen/Login_Page_German.dart';
 import 'Dashboard_Screen.dart';
 
 class Dashboard_Screen_German extends StatefulWidget {
@@ -41,7 +42,7 @@ class _Dashboard_Screen_GermanState extends State<Dashboard_Screen_German> {
     // TODO: implement initState
     super.initState();
 
-    timer2 = Timer.periodic(Duration(seconds: 5), (Timer t) => CheckConnection() );
+    timer2 = Timer.periodic(Duration(seconds: 1), (Timer t) => CheckConnection() );
 
 
     // pass="123456789";
@@ -490,6 +491,10 @@ class _Dashboard_Screen_GermanState extends State<Dashboard_Screen_German> {
       {
         sharedPref.setLoginStatus(false);
         Navigator.pop(context);
+        Navigator.of(context).pushReplacement(PageTransition(
+            duration: const Duration(milliseconds: 1000),
+            type: PageTransitionType.transferUp,
+            child: LoginPageGerman()));
       }
 
     });

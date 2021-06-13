@@ -10,6 +10,7 @@ import 'package:toast/toast.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../Signin_Screen/Login_Page.dart';
+import '../Signin_Screen/Login_Page.dart';
 import 'Dashboard_Screen_German.dart';
 
 class Dashboard_Screen extends StatefulWidget {
@@ -43,7 +44,7 @@ class _Dashboard_ScreenState extends State<Dashboard_Screen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    timer2 = Timer.periodic(Duration(seconds: 5), (Timer t) => CheckConnection() );
+   //  timer2 = Timer.periodic(Duration(seconds: 1), (Timer t) => CheckConnection() );
 
 
     // pass="123456789";
@@ -259,6 +260,12 @@ class _Dashboard_ScreenState extends State<Dashboard_Screen> {
 
 
   }
+
+  void readJS() async{
+    String html = await controller.evaluateJavascript("window.document.getElementsByTagName('html')[0].outerHTML;");
+    print(html);
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -290,13 +297,29 @@ class _Dashboard_ScreenState extends State<Dashboard_Screen> {
                     print("done");setState(() {
                       loader_visibly=false;
                     });
-                   // Navigator.pop(context);
+                    print("heloooo $ff");
+
+
+                    controller.currentUrl().then(
+                          (url) {
+                        if (url.contains("recon?")) {
+                          var token = url.split('recon?')[1];
+                          print(token);
+                        }
+                        else{
+                          print(url);
+                        }
+                      },
+                    );
+                    // Navigator.pop(context);
                   },
                   onWebViewCreated: (WebViewController webViewController) {
                     controller = webViewController;
                   },
                   onPageStarted: (ss) {
                     print("started");
+                    print("heloooo $ss");
+
                   },
                   debuggingEnabled: true,
                   javascriptMode: JavascriptMode.unrestricted,
@@ -495,6 +518,10 @@ class _Dashboard_ScreenState extends State<Dashboard_Screen> {
         {
           sharedPref.setLoginStatus(false);
           Navigator.pop(context);
+          Navigator.of(context).pushReplacement(PageTransition(
+              duration: const Duration(milliseconds: 1000),
+              type: PageTransitionType.transferUp,
+              child: LoginPage()));
         }
 
     });
@@ -601,21 +628,7 @@ getData() async {
     //         pass);
     //controller.loadUrl("https://www.ehausbesuch.de/index.cgi?app=welcome&userid=${ptno}&passwort=${pass}").catchError((onError){print("$onError");});
   }
-  showLoaderDialog(BuildContext context){
-    AlertDialog alert=AlertDialog(
-      content: new Row(
-        children: [
-          CircularProgressIndicator(),
-          Container(margin: EdgeInsets.only(left: 7),child:Text("Login User Please Wait..." )),
-        ],),
-    );
-    showDialog(barrierDismissible: false,
-      context:context,
-      builder:(BuildContext context){
-        return alert;
-      },
-    );
-  }
+
   void On_Click_message() {controller.loadUrl("https://www.ehausbesuch.de/index.cgi?app=nachrichten&userid=" + widget.ptno + "&passwort=" + widget.pass);}
 
   void On_Click_Me() {   controller.loadUrl("https://www.ehausbesuch.de/index.cgi?app=diagnosen&userid=" +widget.ptno  + "&passwort=" + widget.pass);}

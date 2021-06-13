@@ -34,8 +34,6 @@ class _Appointment_enState extends State<Appointment_en> {
               child:
               WebView(
                 onWebResourceError: (onerror) {
-                  print("${onerror}");
-                  Toast.show("Some thing went wrong", context);
                     ErrorDialog();
                   print("done");setState(() {
                     loader_visibly=false;
@@ -46,6 +44,7 @@ class _Appointment_enState extends State<Appointment_en> {
                   print("done");setState(() {
                     loader_visibly=false;
                   });
+                  print("helo0000   $ff");
                   // Navigator.pop(context);
                 },
                 onWebViewCreated: (WebViewController webViewController) {
@@ -53,6 +52,8 @@ class _Appointment_enState extends State<Appointment_en> {
                 },
                 onPageStarted: (ss) {
                   print("started");
+                  print("helo0000   $ss");
+
                 },
                 debuggingEnabled: true,
                 javascriptMode: JavascriptMode.unrestricted,
