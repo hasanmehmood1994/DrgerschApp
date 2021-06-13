@@ -1,6 +1,10 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:drgerschapp/Sharef_Pref.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_page_transition/flutter_page_transition.dart';
 import 'package:toast/toast.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -24,6 +28,7 @@ class _Dashboard_Screen_GermanState extends State<Dashboard_Screen_German> {
   String sessionid;
   String duration;
   WebViewController controller;
+  Timer timer2;
 
   bool loader_visibly=true;
 
@@ -34,6 +39,9 @@ class _Dashboard_Screen_GermanState extends State<Dashboard_Screen_German> {
     // TODO: implement initState
     super.initState();
 
+    timer2 = Timer.periodic(Duration(seconds: 5), (Timer t) => CheckConnection() );
+
+
     // pass="123456789";
     // ptno="934298";
     pass = widget.pass;
@@ -42,6 +50,122 @@ class _Dashboard_Screen_GermanState extends State<Dashboard_Screen_German> {
     getData();
     //"https://www.ehausbesuch.de/index.cgi?app=welcome&userid="+p_no+"&passwort="+pass;
     ///  https://www.drgersch.de/english-speaking-functional-medicine-doctor-in-ktown.html#imprint
+  }
+
+
+  CheckConnection() async {
+    try {
+      final result = await InternetAddress.lookup('www.google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        print('connected');
+      }
+    } on SocketException catch (_) {
+
+      No_Internet_Dilaog();
+
+    }
+  }
+
+  No_Internet_Dilaog(){
+    return   showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+
+            shape: RoundedRectangleBorder(
+                borderRadius:
+                BorderRadius.circular(20.0)),
+            //this right here
+            child: Container(
+              height: 300,
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  mainAxisAlignment:
+                  MainAxisAlignment.center,
+                  crossAxisAlignment:
+                  CrossAxisAlignment.start,
+                  children: [
+                    Align(
+                        child: Image.asset(
+                          'assets/logo.png',
+                          height: 100,
+                          width: 100,
+                        )),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Align(
+                        child: Text(
+                          'lhre Session wurde aus Sicherheitsgrunden beendet (wrong session) Bitte erneut einloggen.',
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                          textAlign:
+                          TextAlign.center,
+                        )),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Align(
+                      child: SizedBox(
+                        width: 220.0,
+                        child: RaisedButton(
+                          shape: StadiumBorder(),
+                          onPressed: () async {
+                            try {
+                              Navigator.pop(context);
+                              final result = await InternetAddress.lookup('www.google.com');
+                              if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+                               After_Splash_Screen();
+                              }
+                            } on SocketException catch (_) {
+                              Toast.show("No Internet Connection", context);
+                            }
+
+                          },
+                          child: Text("RE-LOGIN"),
+                          color: Color(0xffCDDFB9),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
+  }
+
+  After_Splash_Screen() async {
+
+    bool status = await sharedPref.getLoginStatus()??false;
+
+    if(status== false) {
+      String sp = await sharedPref.getLanguage()??"english";
+      return new Future.delayed(const Duration(seconds: 2), () {
+        if( sp.contains('english')) {
+          Navigator.of(context).pushReplacementNamed('/login');
+        }else {
+          Navigator.of(context).pushReplacementNamed('/loginGerman');
+        }
+      });
+    }else {
+
+      String sp = await sharedPref.getLanguage()??"english";
+      return new Future.delayed(const Duration(seconds: 2), () {
+        if( sp.contains('english')) {
+          Navigator.of(context).pushReplacementNamed('/dashboard');
+        }else {
+          Navigator.of(context).pushReplacementNamed('/dashboard');
+        }
+      });
+    }
+
+
+
+
   }
 
   @override

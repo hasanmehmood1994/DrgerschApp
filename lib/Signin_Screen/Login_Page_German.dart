@@ -34,8 +34,8 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    email_controler.text = "";
-    pass_controler.text = "";
+    email_controler.text = "934298";
+    pass_controler.text = "12345678";
 
   }
 

@@ -39,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
     // TODO: implement initState
     super.initState();
     email_controler.text = "934298";
-    pass_controler.text = "123456789";
+    pass_controler.text = "12345678";
     //no 934298
     /// pass  123456789
   }
