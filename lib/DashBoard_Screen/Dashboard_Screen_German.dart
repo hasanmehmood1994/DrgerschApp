@@ -8,6 +8,8 @@ import 'package:flutter_page_transition/flutter_page_transition.dart';
 import 'package:toast/toast.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import 'Dashboard_Screen.dart';
+
 class Dashboard_Screen_German extends StatefulWidget {
   String ptno;
   String pass;
@@ -140,7 +142,9 @@ class _Dashboard_Screen_GermanState extends State<Dashboard_Screen_German> {
 
   After_Splash_Screen() async {
 
+    SharedPref sharedPref = SharedPref();
     bool status = await sharedPref.getLoginStatus()??false;
+
 
     if(status== false) {
       String sp = await sharedPref.getLanguage()??"english";
@@ -154,12 +158,21 @@ class _Dashboard_Screen_GermanState extends State<Dashboard_Screen_German> {
     }else {
 
       String sp = await sharedPref.getLanguage()??"english";
+      String ptno = await sharedPref.getPatientNo();
+      String pass = await sharedPref.getPass();
+      String sessionid = await sharedPref.getSessionId();
+      String duration = await sharedPref.getSessionDuration();
       return new Future.delayed(const Duration(seconds: 2), () {
         if( sp.contains('english')) {
-          Navigator.of(context).pushReplacementNamed('/dashboard');
+          Navigator.of(context).push(PageTransition(
+              duration: const Duration(milliseconds: 1000),
+              type: PageTransitionType.transferUp,
+              child: Dashboard_Screen(ptno, pass, sessionid, duration) ));
         }else {
-          Navigator.of(context).pushReplacementNamed('/dashboard');
-        }
+          Navigator.of(context).push(PageTransition(
+              duration: const Duration(milliseconds: 1000),
+              type: PageTransitionType.transferUp,
+              child: Dashboard_Screen_German(ptno, pass, sessionid, duration) ));           }
       });
     }
 
