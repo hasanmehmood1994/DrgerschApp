@@ -1,8 +1,15 @@
+import 'dart:async';
+import 'dart:io';
+
+import 'package:drgerschapp/No_Internet.dart';
 import 'package:drgerschapp/Sharef_Pref.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_page_transition/flutter_page_transition.dart';
 import 'package:toast/toast.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+
+import '../Signin_Screen/Login_Page.dart';
 
 class Dashboard_Screen extends StatefulWidget {
   String ptno;
@@ -24,6 +31,7 @@ class _Dashboard_ScreenState extends State<Dashboard_Screen> {
   String sessionid;
   String duration;
   WebViewController controller;
+  Timer timer2;
 
   bool loader_visibly=true;
 
@@ -33,6 +41,8 @@ class _Dashboard_ScreenState extends State<Dashboard_Screen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    timer2 = Timer.periodic(Duration(seconds: 5), (Timer t) => CheckConnection() );
+
 
     // pass="123456789";
     // ptno="934298";
@@ -42,6 +52,96 @@ class _Dashboard_ScreenState extends State<Dashboard_Screen> {
        getData();
     //"https://www.ehausbesuch.de/index.cgi?app=welcome&userid="+p_no+"&passwort="+pass;
     ///  https://www.drgersch.de/english-speaking-functional-medicine-doctor-in-ktown.html#imprint
+  }
+
+  CheckConnection() async {
+    try {
+      final result = await InternetAddress.lookup('www.google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        print('connected');
+      }
+    } on SocketException catch (_) {
+     /* Navigator.pop(context);
+
+      Navigator.of(context).push(PageTransition(
+          duration: const Duration(milliseconds: 1000),
+          type: PageTransitionType.transferUp,
+          child: LoginPage())); */
+      showDialog(
+        barrierDismissible: false,
+          context: context,
+          builder: (BuildContext context) {
+            return Dialog(
+
+              shape: RoundedRectangleBorder(
+                  borderRadius:
+                  BorderRadius.circular(20.0)),
+              //this right here
+              child: Container(
+                height: 300,
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    mainAxisAlignment:
+                    MainAxisAlignment.center,
+                    crossAxisAlignment:
+                    CrossAxisAlignment.start,
+                    children: [
+                      Align(
+                          child: Image.asset(
+                            'assets/logo.png',
+                            height: 100,
+                            width: 100,
+                          )),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Align(
+                          child: Text(
+                            'Your Session was ended for security reasons (Wrong Session). Please Login Again',
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                            textAlign:
+                            TextAlign.center,
+                          )),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Align(
+                        child: SizedBox(
+                          width: 220.0,
+                          child: RaisedButton(
+                            shape: StadiumBorder(),
+                            onPressed: () async {
+                              try {
+                                Navigator.pop(context);
+                                final result = await InternetAddress.lookup('www.google.com');
+                                if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+                                  print('connected');
+                                }
+                              } on SocketException catch (_) {
+                                timer2.cancel();
+                                Navigator.pop(context);
+                                Navigator.of(context).pushReplacement(PageTransition(
+                                    duration: const Duration(milliseconds: 1000),
+                                    type: PageTransitionType.transferUp,
+                                    child: No_Internet()));
+                              }
+
+                            },
+                            child: Text("OK"),
+                            color: Color(0xffCDDFB9),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            );
+          });
+    }
   }
 
   @override

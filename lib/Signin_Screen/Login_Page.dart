@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:drgerschapp/DashBoard_Screen/Dashboard_Screen.dart';
@@ -203,7 +204,7 @@ class _LoginPageState extends State<LoginPage> {
                                           }else if(pass_controler.text.trim().toString().isEmpty){
                                             Toast.show('Please Enter Password',context);
                                           }else{
-                                            Login_User_Api(email_controler.text.trim().toString(),pass_controler.text.trim().toString(),loginstatus);
+                                            CheckConnection(email_controler.text.trim().toString(),pass_controler.text.trim().toString(),loginstatus);
                                           }
 
 
@@ -718,5 +719,16 @@ class _LoginPageState extends State<LoginPage> {
       session_duration = "20";
     }
     return session_duration;
+  }
+
+  CheckConnection(email,pass,loginstatus) async {
+    try {
+      final result = await InternetAddress.lookup('www.google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        Login_User_Api(email,pass,loginstatus);
+      }
+    } on SocketException catch (_) {
+      Toast.show("No Internet Connection Available", context);
+    }
   }
 }

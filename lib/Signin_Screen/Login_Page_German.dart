@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:drgerschapp/Language.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -207,7 +209,7 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
                                             }else if(pass_controler.text.trim().toString().isEmpty){
                                               Toast.show('Please Enter Password',context);
                                             }else{
-                                              Login_User_Api(email_controler.text.trim().toString(),pass_controler.text.trim().toString(),loginstatus);
+                                              CheckConnection(email_controler.text.trim().toString(),pass_controler.text.trim().toString(),loginstatus);
                                             }
                                           },
                                           child: Text("Einloggen"),
@@ -627,6 +629,17 @@ class _LoginPageGermanState extends State<LoginPageGerman> {
       session_duration = "20";
     }
     return session_duration;
+  }
+
+  CheckConnection(email,pass,loginstatus) async {
+    try {
+      final result = await InternetAddress.lookup('www.google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        Login_User_Api(email,pass,loginstatus);
+      }
+    } on SocketException catch (_) {
+      Toast.show("Keine Internetverbindung verfügbar", context);
+    }
   }
 
 }
