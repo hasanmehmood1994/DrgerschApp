@@ -39,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
     // TODO: implement initState
     super.initState();
     email_controler.text = "934298";
-    pass_controler.text = "12345678";
+    pass_controler.text = "BcBaeafa2z";
     //no 934298
     /// pass  123456789
   }
@@ -731,4 +731,6 @@ class _LoginPageState extends State<LoginPage> {
       Toast.show("No Internet Connection Available", context);
     }
   }
+
+
 }

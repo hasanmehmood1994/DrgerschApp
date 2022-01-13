@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.drgerschapp.drgerschapp">
-   <application
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <application
         android:label="Dr. Gersch"
         android:icon="@mipmap/ic_launcher">
         <activity

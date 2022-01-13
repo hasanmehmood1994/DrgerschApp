@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_page_transition/flutter_page_transition.dart';
 import 'package:toast/toast.dart';
+import 'package:webview_flutter/platform_interface.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../Signin_Screen/Login_Page.dart';
@@ -55,6 +56,8 @@ class _Dashboard_ScreenState extends State<Dashboard_Screen> {
        getData();
     //"https://www.ehausbesuch.de/index.cgi?app=welcome&userid="+p_no+"&passwort="+pass;
     ///  https://www.drgersch.de/english-speaking-functional-medicine-doctor-in-ktown.html#imprint
+    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+
   }
 
   CheckConnection() async {
@@ -307,6 +310,7 @@ class _Dashboard_ScreenState extends State<Dashboard_Screen> {
                           print(token);
                         }
                         else{
+
                           print(url);
                         }
                       },
@@ -631,7 +635,14 @@ getData() async {
 
   void On_Click_message() {controller.loadUrl("https://www.ehausbesuch.de/index.cgi?app=nachrichten&userid=" + widget.ptno + "&passwort=" + widget.pass);}
 
-  void On_Click_Me() {   controller.loadUrl("https://www.ehausbesuch.de/index.cgi?app=diagnosen&userid=" +widget.ptno  + "&passwort=" + widget.pass);}
+
+    On_Click_Me() {
+   try{
+     controller.loadUrl("https://www.ehausbesuch.de/index.cgi?app=diagnosen&userid=" +widget.ptno  + "&passwort=" + widget.pass);
+   }catch(e){
+     print(e.toString());
+   }
+   }
 
   void On_Click_Appointment() {
     controller.loadUrl("https://www.ehausbesuch.de/termine.cgi?app=buchen&userid=" +widget.ptno+ "&passwort=" + widget.pass);}
